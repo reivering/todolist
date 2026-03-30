@@ -165,7 +165,7 @@ export function NoteEditor({ note, onSave }: NoteEditorProps) {
             className={cn(
               'flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-medium transition-colors',
               recording
-                ? 'bg-red-100 text-red-600 hover:bg-red-200'
+                ? 'bg-red-600/30 text-red-300 hover:bg-red-600/40'
                 : 'text-slate-500 hover:bg-slate-800 hover:text-slate-200'
             )}
           >
@@ -221,7 +221,7 @@ function ToolbarBtn({ children, onClick, active, title }: {
       className={cn(
         'p-1.5 rounded-md text-sm transition-colors',
         active
-          ? 'bg-violet-100 text-violet-700'
+          ? 'bg-violet-600/30 text-violet-300'
           : 'text-slate-500 hover:bg-slate-800 hover:text-slate-200'
       )}
     >
