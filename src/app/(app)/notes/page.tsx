@@ -177,7 +177,7 @@ export default function NotesPage() {
   return (
     <div className="flex h-full overflow-hidden">
       {/* Notes list panel */}
-      <div className="w-64 flex flex-col border-r border-slate-800 bg-slate-900/40">
+      <div className="hidden sm:flex w-64 flex-col border-r border-slate-800 bg-slate-900/40">
         <div className="flex items-center justify-between px-4 py-3 border-b border-slate-800">
           <div>
             <h2 className="text-sm font-semibold text-slate-200">{title}</h2>
