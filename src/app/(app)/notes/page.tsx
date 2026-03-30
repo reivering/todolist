@@ -11,7 +11,7 @@ import { ConfirmModal } from '@/components/ui/ConfirmModal'
 import { EmptyState } from '@/components/ui/EmptyState'
 import {
   Plus, Pin, PinOff, Trash2, FolderInput, FileText, MoreHorizontal,
-  ChevronDown, Layers, BookMarked
+  ChevronDown, Layers, BookMarked, X
 } from 'lucide-react'
 import toast from 'react-hot-toast'
 import { cn } from '@/lib/utils'
@@ -227,6 +227,13 @@ export default function NotesPage() {
                 >
                   <FileText size={16} />
                 </button>
+                <button
+                  onClick={() => setShowNotesList(!showNotesList)}
+                  className="sm:hidden p-1.5 text-slate-400 hover:bg-slate-800 rounded-lg"
+                  title="Show notes list"
+                >
+                  <FileText size={16} />
+                </button>
                 <NoteTagManager
                   noteId={selectedNote.id}
                   userId={''}
@@ -398,6 +405,25 @@ export default function NotesPage() {
               ) : (
                 <NoteList notes={notes} selectedId={selectedNote?.id ?? null} onSelect={(note) => { setSelectedNote(note); setShowNotesList(false) }} />
               )}
+            </div>
+          </div>
+        </>
+      )}
+
+
+      {/* Notes list modal on mobile */}
+      {showNotesList && (
+        <>
+          <div className="sm:hidden fixed inset-0 bg-black/30 z-30" onClick={() => setShowNotesList(false)} />
+          <div className="sm:hidden fixed inset-y-0 left-0 w-64 z-40 bg-slate-900 border-r border-slate-800 flex flex-col overflow-hidden">
+            <div className="flex items-center justify-between px-4 py-3 border-b border-slate-800">
+              <h2 className="text-sm font-semibold text-slate-200">{title}</h2>
+              <button onClick={() => setShowNotesList(false)} className="p-1 hover:bg-slate-800 rounded text-slate-500">
+                <X size={16} />
+              </button>
+            </div>
+            <div className="flex-1 overflow-y-auto">
+              {notes.length === 0 ? <div className="flex items-center justify-center h-full text-slate-500 text-sm">No notes</div> : <NoteList notes={notes} selectedId={selectedNote?.id ?? null} onSelect={(note) => { setSelectedNote(note); setShowNotesList(false) }} />}
             </div>
           </div>
         </>
