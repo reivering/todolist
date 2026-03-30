@@ -178,7 +178,15 @@ export function AppSidebar({ userId }: AppSidebarProps) {
         onConfirm={modal.onConfirm}
         onCancel={closeModal}
       />
-      <div className="w-16 sm:w-[52px] border-r border-slate-800 flex flex-col items-center pt-3 pb-4 gap-1 bg-slate-900">
+      {/* Mobile hamburger button */}
+      <button
+        onClick={() => setCollapsed(false)}
+        className="sm:hidden fixed top-4 left-4 z-40 p-2 bg-violet-600 text-white rounded-lg hover:bg-violet-700 shadow-lg"
+        title="Open sidebar"
+      >
+        <PanelLeft size={20} />
+      </button>
+      <div className="hidden sm:flex w-16 sm:w-[52px] border-r border-slate-800 flex flex-col items-center pt-3 pb-4 gap-1 bg-slate-900">
         <button onClick={() => setCollapsed(false)} className="p-3 sm:p-2 hover:bg-slate-800 rounded-lg text-slate-500 mb-2 active:scale-95 transition-transform">
           <PanelLeft size={18} className="sm:w-4" />
         </button>
@@ -217,7 +225,9 @@ export function AppSidebar({ userId }: AppSidebarProps) {
       onConfirm={modal.onConfirm}
       onCancel={closeModal}
     />
-    <div className="w-60 border-r border-slate-800 flex flex-col bg-slate-900 overflow-hidden select-none">
+    {/* Mobile overlay backdrop */}
+    <div className="sm:hidden fixed inset-0 bg-black/30 z-40" onClick={() => setCollapsed(true)} />
+    <div className="fixed inset-y-0 left-0 w-60 z-50 sm:relative sm:inset-auto sm:z-auto border-r border-slate-800 flex flex-col bg-slate-900 overflow-hidden select-none">
       {/* Branding */}
       <div className="flex items-center justify-between px-4 pt-4 pb-3">
         <div className="flex items-center gap-2.5">
