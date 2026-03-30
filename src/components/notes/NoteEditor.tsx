@@ -28,7 +28,7 @@ export function NoteEditor({ note, onSave }: NoteEditorProps) {
   const [recording, setRecording] = useState(false)
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const recognitionRef = useRef<any>(null)
-  const interimMarkRef = useRef<string>('')
+  const shouldKeepListeningRef = useRef(false)
 
   const editor = useEditor({
     immediatelyRender: false,
@@ -80,43 +80,85 @@ export function NoteEditor({ note, onSave }: NoteEditorProps) {
 
   const wordCount = editor?.getText().trim().split(/\s+/).filter(Boolean).length ?? 0
 
-  function toggleVoice() {
-    if (recording) {
-      recognitionRef.current?.stop()
-      setRecording(false)
-      return
-    }
-
+  function startListening() {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const SR = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition
     if (!SR) { alert('Speech recognition is not supported in this browser.'); return }
 
+    // Stop any existing recognition before creating a new one
+    if (recognitionRef.current) {
+      try { recognitionRef.current.stop() } catch { /* already stopped */ }
+      recognitionRef.current = null
+    }
+
     const rec = new SR()
     rec.continuous = true
-    rec.interimResults = true
+    rec.interimResults = false
     rec.lang = 'en-US'
     recognitionRef.current = rec
 
-    rec.onresult = (e: any) => {
-      if (!editor) return
-      let finalText = ''
-      let interimText = ''
-      for (let i = e.resultIndex; i < e.results.length; i++) {
-        if (e.results[i].isFinal) finalText += e.results[i][0].transcript
-        else interimText += e.results[i][0].transcript
-      }
-      if (finalText) {
-        editor.chain().focus().insertContent(finalText + ' ').run()
-        scheduleAutoSave()
-      }
-      interimMarkRef.current = interimText
+    rec.onstart = () => {
+      setRecording(true)
     }
 
-    rec.onend = () => setRecording(false)
-    rec.onerror = () => setRecording(false)
+    rec.onresult = (e: any) => {
+      let finalText = ''
+      for (let i = e.resultIndex; i < e.results.length; i++) {
+        if (e.results[i].isFinal) {
+          finalText += e.results[i][0].transcript + ' '
+        }
+      }
+      if (finalText && editor) {
+        editor.chain().focus().insertContent(finalText).run()
+        scheduleAutoSave()
+      }
+    }
+
+    rec.onend = () => {
+      recognitionRef.current = null
+      if (shouldKeepListeningRef.current) {
+        // Browser killed the session (silence timeout etc.) — restart with backoff
+        setTimeout(() => {
+          if (shouldKeepListeningRef.current) startListening()
+        }, 500)
+      } else {
+        setRecording(false)
+      }
+    }
+
+    rec.onerror = (e: any) => {
+      const error = e.error as string
+      // 'aborted' and 'no-speech' are benign — let onend handle restart
+      if (error === 'aborted' || error === 'no-speech') return
+      // 'network' on rapid restarts — back off longer
+      if (error === 'network') {
+        recognitionRef.current = null
+        if (shouldKeepListeningRef.current) {
+          setTimeout(() => {
+            if (shouldKeepListeningRef.current) startListening()
+          }, 1500)
+        }
+        return
+      }
+      // Fatal errors — stop dictation
+      shouldKeepListeningRef.current = false
+      recognitionRef.current = null
+      setRecording(false)
+    }
+
     rec.start()
     editor?.commands.focus()
-    setRecording(true)
+  }
+
+  function toggleVoice() {
+    if (recording) {
+      shouldKeepListeningRef.current = false
+      recognitionRef.current?.stop()
+      setRecording(false)
+      return
+    }
+    shouldKeepListeningRef.current = true
+    startListening()
   }
 
   if (!editor) return null
