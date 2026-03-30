@@ -35,6 +35,7 @@ export default function NotesPage() {
   const [showBriefingMenu, setShowBriefingMenu] = useState(false)
   const [briefings, setBriefings] = useState<Briefing[]>([])
   const [userId, setUserId] = useState('')
+  const [showNotesList, setShowNotesList] = useState(false)
 
   useEffect(() => {
     supabase.auth.getUser().then(({ data }) => { if (data.user) setUserId(data.user.id) })
@@ -219,6 +220,13 @@ export default function NotesPage() {
             {/* Note toolbar */}
             <div className="flex items-center justify-between px-5 py-2 border-b border-slate-800 relative z-10 bg-slate-900">
               <div className="flex items-center gap-2">
+                <button
+                  onClick={() => setShowNotesList(!showNotesList)}
+                  className="sm:hidden p-1.5 text-slate-400 hover:bg-slate-800 rounded-lg"
+                  title="Show notes list"
+                >
+                  <FileText size={16} />
+                </button>
                 <NoteTagManager
                   noteId={selectedNote.id}
                   userId={''}
@@ -363,6 +371,37 @@ export default function NotesPage() {
         onConfirm={trashNote}
         onCancel={() => setConfirmDelete(false)}
       />
+
+      
+      {/* Notes list modal on mobile */}
+      {showNotesList && (
+        <>
+          <div
+            className="sm:hidden fixed inset-0 bg-black/30 z-30"
+            onClick={() => setShowNotesList(false)}
+          />
+          <div className="sm:hidden fixed inset-y-0 left-0 w-64 z-40 bg-slate-900 border-r border-slate-800 flex flex-col overflow-hidden">
+            <div className="flex items-center justify-between px-4 py-3 border-b border-slate-800">
+              <h2 className="text-sm font-semibold text-slate-200">{title}</h2>
+              <button
+                onClick={() => setShowNotesList(false)}
+                className="p-1 hover:bg-slate-800 rounded text-slate-500"
+              >
+                <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                  <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+                </svg>
+              </button>
+            </div>
+            <div className="flex-1 overflow-y-auto">
+              {notes.length === 0 ? (
+                <div className="flex items-center justify-center h-full text-slate-500 text-sm">No notes</div>
+              ) : (
+                <NoteList notes={notes} selectedId={selectedNote?.id ?? null} onSelect={(note) => { setSelectedNote(note); setShowNotesList(false) }} />
+              )}
+            </div>
+          </div>
+        </>
+      )}
 
       {/* Close dropdowns on click outside */}
       {(showMoveMenu || showActionsMenu) && (
