@@ -47,8 +47,8 @@ export default function SignupPage() {
               <CheckSquare size={16} />
             </div>
           </div>
-          <h1 className="text-2xl font-bold text-gray-900">Create an account</h1>
-          <p className="text-gray-500 mt-1 text-sm">Start capturing notes and managing todos</p>
+          <h1 className="text-2xl font-bold text-gray-900">Welcome to toodoloo</h1>
+          <p className="text-gray-500 mt-1 text-sm">Create an account to start capturing notes and managing todos</p>
         </div>
 
         <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-8">

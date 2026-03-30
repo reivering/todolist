@@ -37,8 +37,8 @@ export default function LoginPage() {
               <CheckSquare size={16} />
             </div>
           </div>
-          <h1 className="text-2xl font-bold text-gray-900">Welcome back</h1>
-          <p className="text-gray-500 mt-1 text-sm">Sign in to your notes &amp; todos</p>
+          <h1 className="text-2xl font-bold text-gray-900">Welcome back to toodoloo</h1>
+          <p className="text-gray-500 mt-1 text-sm">Sign in to continue</p>
         </div>
 
         <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-8">
