@@ -26,7 +26,8 @@ export function NoteEditor({ note, onSave }: NoteEditorProps) {
   const saveTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
   const latestTitle = useRef(note.title)
   const [recording, setRecording] = useState(false)
-  const recognitionRef = useRef<SpeechRecognition | null>(null)
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const recognitionRef = useRef<any>(null)
   const interimMarkRef = useRef<string>('')
 
   const editor = useEditor({
@@ -86,8 +87,8 @@ export function NoteEditor({ note, onSave }: NoteEditorProps) {
       return
     }
 
-    const SR = (window as unknown as { SpeechRecognition?: typeof SpeechRecognition; webkitSpeechRecognition?: typeof SpeechRecognition }).SpeechRecognition
-      || (window as unknown as { webkitSpeechRecognition?: typeof SpeechRecognition }).webkitSpeechRecognition
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const SR = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition
     if (!SR) { alert('Speech recognition is not supported in this browser.'); return }
 
     const rec = new SR()
@@ -96,7 +97,7 @@ export function NoteEditor({ note, onSave }: NoteEditorProps) {
     rec.lang = 'en-US'
     recognitionRef.current = rec
 
-    rec.onresult = (e: SpeechRecognitionEvent) => {
+    rec.onresult = (e: any) => {
       if (!editor) return
       let finalText = ''
       let interimText = ''

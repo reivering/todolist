@@ -71,12 +71,13 @@ export function VoiceDictationModal({ open, onClose, onSave }: VoiceDictationMod
   const [tasks, setTasks] = useState<ParsedTask[]>([])
   const [saving, setSaving] = useState(false)
   const [supported, setSupported] = useState(true)
-  const recognitionRef = useRef<SpeechRecognition | null>(null)
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const recognitionRef = useRef<any>(null)
 
   useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const SR = (typeof window !== 'undefined') &&
-      ((window as unknown as { SpeechRecognition?: typeof SpeechRecognition }).SpeechRecognition ||
-       (window as unknown as { webkitSpeechRecognition?: typeof SpeechRecognition }).webkitSpeechRecognition)
+      ((window as any).SpeechRecognition || (window as any).webkitSpeechRecognition)
     if (!SR) { setSupported(false); return }
 
     const rec = new SR()
@@ -84,7 +85,7 @@ export function VoiceDictationModal({ open, onClose, onSave }: VoiceDictationMod
     rec.interimResults = true
     rec.lang = 'en-US'
 
-    rec.onresult = (e: SpeechRecognitionEvent) => {
+    rec.onresult = (e: any) => {
       let final = ''
       let interim = ''
       for (let i = 0; i < e.results.length; i++) {

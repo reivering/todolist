@@ -462,13 +462,15 @@ function DeckTab({
 
 /* ── Study tab ── */
 function StudyTab({
-  cards, index, flipped, done, known, unknown,
-  onFlip, onKnown, onUnknown, onReset, onRestudyUnknown,
+  cards, index, flipped, done, known, unknown, shuffled, flipMode,
+  onFlip, onKnown, onUnknown, onReset, onRestudyUnknown, onToggleShuffle, onToggleFlipMode,
 }: {
   cards: Flashcard[]; index: number; flipped: boolean; done: boolean
   known: Set<string>; unknown: Set<string>
+  shuffled: boolean; flipMode: boolean
   onFlip: () => void; onKnown: () => void; onUnknown: () => void
   onReset: () => void; onRestudyUnknown: () => void
+  onToggleShuffle: () => void; onToggleFlipMode: () => void
 }) {
   const card = cards[index]
   const progress = cards.length > 0 ? ((known.size + unknown.size) / cards.length) * 100 : 0
@@ -516,6 +518,27 @@ function StudyTab({
 
   return (
     <div className="flex-1 flex flex-col p-6">
+      {/* Header with toggles */}
+      <div className="flex items-center justify-between mb-4">
+        <span className="text-xs text-gray-400 font-medium">{cards.length} card{cards.length !== 1 ? 's' : ''}</span>
+        <div className="flex items-center gap-1.5">
+          <button
+            onClick={onToggleShuffle}
+            title="Shuffle"
+            className={cn('p-2 rounded-lg transition-colors', shuffled ? 'bg-violet-100 text-violet-600' : 'text-gray-400 hover:bg-gray-100')}
+          >
+            <Shuffle size={14} />
+          </button>
+          <button
+            onClick={onToggleFlipMode}
+            title="Flip mode (answer → question)"
+            className={cn('p-2 rounded-lg transition-colors', flipMode ? 'bg-violet-100 text-violet-600' : 'text-gray-400 hover:bg-gray-100')}
+          >
+            <ArrowLeftRight size={14} />
+          </button>
+        </div>
+      </div>
+
       {/* Progress bar */}
       <div className="flex items-center gap-3 mb-6">
         <div className="flex-1 h-1.5 bg-gray-100 rounded-full overflow-hidden">

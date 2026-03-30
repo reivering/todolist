@@ -43,7 +43,7 @@ function renderNode(node: Node, key: number): React.ReactNode {
 
     case 'heading': {
       const level = (node.attrs?.level as number) ?? 1
-      const Tag = `h${level}` as keyof JSX.IntrinsicElements
+      const Tag = `h${level}` as keyof React.JSX.IntrinsicElements
       const sizes: Record<number, string> = { 1: 'text-2xl font-bold mt-6 mb-2', 2: 'text-xl font-bold mt-5 mb-2', 3: 'text-lg font-semibold mt-4 mb-1.5', 4: 'text-base font-semibold mt-3 mb-1', 5: 'text-sm font-semibold mt-2 mb-1', 6: 'text-sm font-medium mt-2 mb-1' }
       return (
         <Tag key={key} className={cn('text-gray-900', sizes[level] ?? sizes[1])}>
@@ -101,7 +101,7 @@ function renderNode(node: Node, key: number): React.ReactNode {
       return (
         <li key={key} className="flex items-start gap-2 text-gray-700">
           <span className={cn('mt-1 w-3.5 h-3.5 rounded border flex-shrink-0', node.attrs?.checked ? 'bg-violet-500 border-violet-500' : 'border-gray-400')} />
-          <span className={cn(node.attrs?.checked && 'line-through text-gray-400')}>
+          <span className={cn((node.attrs?.checked as boolean) && 'line-through text-gray-400')}>
             {node.content?.map((n, i) => renderNode(n, i))}
           </span>
         </li>
