@@ -23,8 +23,8 @@ export function AppSidebar({ userId }: AppSidebarProps) {
   const router = useRouter()
   const supabase = createClient()
 
-  const [collapsed, setCollapsed] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
+  const [collapsed, setCollapsed] = useState(false)
   const [searchQuery, setSearchQuery] = useState('')
   const [folders, setFolders] = useState<Folder[]>([])
   const [projects, setProjects] = useState<Project[]>([])
@@ -71,18 +71,22 @@ export function AppSidebar({ userId }: AppSidebarProps) {
 
   useEffect(() => { loadData() }, [loadData])
 
-  // Detect mobile and auto-collapse sidebar on navigation
+  // Detect mobile and auto-collapse sidebar
   useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 640)
+    const checkMobile = () => {
+      const mobile = window.innerWidth < 640
+      setIsMobile(mobile)
+      setCollapsed(mobile)
+    }
     checkMobile()
     window.addEventListener('resize', checkMobile)
     return () => window.removeEventListener('resize', checkMobile)
   }, [])
 
-  // Auto-collapse sidebar on mobile when navigating
+  // Auto-collapse sidebar when navigating on mobile
   useEffect(() => {
-    if (isMobile && !collapsed) setCollapsed(true)
-  }, [pathname, isMobile, collapsed])
+    if (isMobile) setCollapsed(true)
+  }, [pathname, isMobile])
 
   async function handleLogout() {
     await supabase.auth.signOut()
