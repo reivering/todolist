@@ -194,7 +194,7 @@ export default function NotesPage() {
 
         {loading ? (
           <div className="flex-1 flex items-center justify-center">
-            <div className="w-5 h-5 border-2 border-blue-600 border-t-transparent rounded-full animate-spin" />
+            <div className="w-5 h-5 border-2 border-violet-600 border-t-transparent rounded-full animate-spin" />
           </div>
         ) : notes.length === 0 ? (
           <EmptyState
@@ -235,7 +235,7 @@ export default function NotesPage() {
                 {/* Flashcards */}
                 <button
                   onClick={() => setShowFlashcards(true)}
-                  className="flex items-center gap-1 px-2.5 py-1.5 text-xs text-violet-600 hover:bg-violet-50 rounded-lg border border-violet-200"
+                  className="flex items-center gap-1 px-2.5 py-1.5 text-xs text-violet-300 hover:text-violet-200 hover:bg-violet-600/20 rounded-lg border border-violet-600/40 transition-colors"
                   title="Flashcards for this note"
                 >
                   <Layers size={13} />
@@ -246,7 +246,7 @@ export default function NotesPage() {
                 <div className="relative">
                   <button
                     onClick={() => { setShowMoveMenu(!showMoveMenu); setShowActionsMenu(false) }}
-                    className="flex items-center gap-1 px-2.5 py-1.5 text-xs text-slate-400 hover:bg-slate-800 rounded-lg border border-slate-700"
+                    className="flex items-center gap-1 px-2.5 py-1.5 text-xs text-slate-300 hover:text-slate-100 hover:bg-slate-700 rounded-lg border border-slate-600/40 transition-colors"
                     title="Move to folder"
                   >
                     <FolderInput size={13} />
@@ -322,7 +322,7 @@ export default function NotesPage() {
                       <div className="border-t border-slate-800 mt-1 pt-1">
                         <button
                           onClick={() => { setConfirmDelete(true); setShowActionsMenu(false) }}
-                          className="w-full text-left px-3 py-1.5 text-sm text-red-600 hover:bg-red-50 flex items-center gap-2"
+                          className="w-full text-left px-3 py-1.5 text-sm text-red-400 hover:text-red-300 hover:bg-red-600/20 flex items-center gap-2 transition-colors"
                         >
                           <Trash2 size={14} />
                           Move to trash
