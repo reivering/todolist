@@ -51,7 +51,7 @@ export function NoteList({ notes, selectedId, onSelect }: NoteListProps) {
 function GroupLabel({ label }: { label: string }) {
   return (
     <div className="px-4 pt-3 pb-1.5">
-      <span className="text-[11px] font-semibold text-gray-400 uppercase tracking-widest">{label}</span>
+      <span className="text-[11px] font-semibold text-slate-500 uppercase tracking-widest">{label}</span>
     </div>
   )
 }
@@ -92,23 +92,23 @@ function NoteItem({ note, selected, onSelect }: { note: Note; selected: boolean;
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       className={cn(
-        'w-full text-left px-4 py-3.5 border-b border-gray-100 relative group transition-colors cursor-grab active:cursor-grabbing',
+        'w-full text-left px-4 py-3.5 border-b border-slate-800 relative group transition-colors cursor-grab active:cursor-grabbing',
         selected
           ? 'bg-violet-50 border-l-[3px] border-l-violet-500'
-          : 'hover:bg-gray-50 border-l-[3px] border-l-transparent'
+          : 'hover:bg-slate-900/50 border-l-[3px] border-l-transparent'
       )}
     >
       {/* Title row */}
       <div className="flex items-center justify-between gap-2 mb-1">
         <span className={cn(
           'text-[13px] font-semibold truncate flex-1 leading-tight',
-          selected ? 'text-violet-900' : 'text-gray-800'
+          selected ? 'text-violet-900' : 'text-slate-200'
         )}>
           {note.title || 'Untitled'}
         </span>
         <div className="flex items-center gap-1.5 flex-shrink-0">
           {note.is_pinned && <Pin size={10} className="text-violet-400 fill-violet-400" />}
-          <span className="text-[11px] text-gray-400 tabular-nums">
+          <span className="text-[11px] text-slate-500 tabular-nums">
             {smartDate(note.updated_at)}
           </span>
         </div>
@@ -116,16 +116,16 @@ function NoteItem({ note, selected, onSelect }: { note: Note; selected: boolean;
 
       {/* Preview */}
       {preview ? (
-        <p className="text-xs text-gray-400 truncate leading-relaxed">{preview}</p>
+        <p className="text-xs text-slate-500 truncate leading-relaxed">{preview}</p>
       ) : (
-        <p className="text-xs text-gray-300 italic">No content</p>
+        <p className="text-xs text-slate-600 italic">No content</p>
       )}
 
       {/* Footer: folder + tags */}
       {(note.folder || (note.tags && note.tags.length > 0)) && (
         <div className="flex items-center gap-2 mt-1.5 flex-wrap">
           {note.folder && (
-            <span className="flex items-center gap-1 text-[11px] text-gray-400">
+            <span className="flex items-center gap-1 text-[11px] text-slate-500">
               <Folder size={10} className="text-amber-400" />
               {note.folder.name}
             </span>
@@ -140,7 +140,7 @@ function NoteItem({ note, selected, onSelect }: { note: Note; selected: boolean;
             </span>
           ))}
           {note.tags && note.tags.length > 2 && (
-            <span className="text-[10px] text-gray-400">+{note.tags.length - 2}</span>
+            <span className="text-[10px] text-slate-500">+{note.tags.length - 2}</span>
           )}
         </div>
       )}
@@ -149,7 +149,7 @@ function NoteItem({ note, selected, onSelect }: { note: Note; selected: boolean;
     {/* Hover preview portal */}
     {hoverPos && typeof document !== 'undefined' && createPortal(
       <div
-        className="fixed z-50 w-80 bg-white border border-gray-200 rounded-2xl shadow-2xl overflow-hidden pointer-events-none"
+        className="fixed z-50 w-80 bg-slate-900 border border-slate-700 rounded-2xl shadow-2xl overflow-hidden pointer-events-none"
         style={{
           top: Math.min(hoverPos.top, window.innerHeight - 340),
           left: hoverPos.left,
@@ -158,11 +158,11 @@ function NoteItem({ note, selected, onSelect }: { note: Note; selected: boolean;
         }}
       >
         {/* Header */}
-        <div className="px-4 pt-4 pb-3 border-b border-gray-100">
-          <p className="text-sm font-semibold text-gray-900 leading-snug">{note.title || 'Untitled'}</p>
+        <div className="px-4 pt-4 pb-3 border-b border-slate-800">
+          <p className="text-sm font-semibold text-slate-100 leading-snug">{note.title || 'Untitled'}</p>
           <div className="flex items-center gap-2 mt-1.5 flex-wrap">
             {note.folder && (
-              <span className="flex items-center gap-1 text-[11px] text-gray-400">
+              <span className="flex items-center gap-1 text-[11px] text-slate-500">
                 <Folder size={10} className="text-amber-400" /> {note.folder.name}
               </span>
             )}
@@ -177,8 +177,8 @@ function NoteItem({ note, selected, onSelect }: { note: Note; selected: boolean;
         {/* Content preview */}
         <div className="px-4 py-3 overflow-hidden" style={{ maxHeight: 220 }}>
           {note.content
-            ? <NoteContentRenderer content={note.content} className="text-xs text-gray-600 line-clamp-[10]" />
-            : <p className="text-xs text-gray-300 italic">No content</p>
+            ? <NoteContentRenderer content={note.content} className="text-xs text-slate-300 line-clamp-[10]" />
+            : <p className="text-xs text-slate-600 italic">No content</p>
           }
         </div>
       </div>,

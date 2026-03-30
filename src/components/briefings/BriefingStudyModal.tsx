@@ -94,18 +94,18 @@ export function BriefingStudyModal({ open, briefingTitle, notes, cards: initialC
     <div className="fixed inset-0 z-50 flex items-center justify-center">
       <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" onClick={onClose} />
 
-      <div className="relative bg-white rounded-2xl shadow-2xl border border-gray-200 w-full max-w-2xl mx-4 flex flex-col"
+      <div className="relative bg-slate-900 rounded-2xl shadow-2xl border border-slate-700 w-full max-w-2xl mx-4 flex flex-col"
         style={{ maxHeight: '85vh' }}>
 
         {/* Header */}
-        <div className="flex items-center justify-between px-5 py-4 border-b border-gray-100">
+        <div className="flex items-center justify-between px-5 py-4 border-b border-slate-800">
           <div className="flex items-center gap-3">
             <div className="w-8 h-8 bg-indigo-100 rounded-lg flex items-center justify-center flex-shrink-0">
               <BookMarked size={15} className="text-indigo-600" />
             </div>
             <div>
-              <h2 className="text-sm font-semibold text-gray-900">{briefingTitle}</h2>
-              <p className="text-xs text-gray-400">{queue.length} card{queue.length !== 1 ? 's' : ''} · {notes.length} note{notes.length !== 1 ? 's' : ''}</p>
+              <h2 className="text-sm font-semibold text-slate-100">{briefingTitle}</h2>
+              <p className="text-xs text-slate-500">{queue.length} card{queue.length !== 1 ? 's' : ''} · {notes.length} note{notes.length !== 1 ? 's' : ''}</p>
             </div>
           </div>
 
@@ -114,7 +114,7 @@ export function BriefingStudyModal({ open, briefingTitle, notes, cards: initialC
             <button
               onClick={() => reset(initialCards, !shuffled, flipMode)}
               title="Shuffle"
-              className={cn('p-2 rounded-lg transition-colors', shuffled ? 'bg-indigo-100 text-indigo-600' : 'text-gray-400 hover:bg-gray-100')}
+              className={cn('p-2 rounded-lg transition-colors', shuffled ? 'bg-indigo-100 text-indigo-600' : 'text-slate-500 hover:bg-slate-800')}
             >
               <Shuffle size={14} />
             </button>
@@ -122,11 +122,11 @@ export function BriefingStudyModal({ open, briefingTitle, notes, cards: initialC
             <button
               onClick={() => reset(initialCards, shuffled, !flipMode)}
               title="Flip mode (answer → question)"
-              className={cn('p-2 rounded-lg transition-colors', flipMode ? 'bg-indigo-100 text-indigo-600' : 'text-gray-400 hover:bg-gray-100')}
+              className={cn('p-2 rounded-lg transition-colors', flipMode ? 'bg-indigo-100 text-indigo-600' : 'text-slate-500 hover:bg-slate-800')}
             >
               <ArrowLeftRight size={14} />
             </button>
-            <button onClick={onClose} className="p-2 hover:bg-gray-100 rounded-lg text-gray-400">
+            <button onClick={onClose} className="p-2 hover:bg-slate-800 rounded-lg text-slate-500">
               <X size={15} />
             </button>
           </div>
@@ -139,8 +139,8 @@ export function BriefingStudyModal({ open, briefingTitle, notes, cards: initialC
               <div className="w-14 h-14 bg-indigo-50 rounded-2xl flex items-center justify-center mb-4">
                 <Layers size={24} className="text-indigo-300" />
               </div>
-              <p className="text-sm font-medium text-gray-600 mb-1">No flashcards in this briefing</p>
-              <p className="text-xs text-gray-400 max-w-xs">Open the notes in this briefing and add flashcards to start studying.</p>
+              <p className="text-sm font-medium text-slate-300 mb-1">No flashcards in this briefing</p>
+              <p className="text-xs text-slate-500 max-w-xs">Open the notes in this briefing and add flashcards to start studying.</p>
             </div>
           ) : done ? (
             <CompletionScreen
@@ -154,15 +154,15 @@ export function BriefingStudyModal({ open, briefingTitle, notes, cards: initialC
             <div className="flex-1 flex flex-col p-6">
               {/* Progress */}
               <div className="flex items-center gap-3 mb-6">
-                <div className="flex-1 h-1.5 bg-gray-100 rounded-full overflow-hidden">
+                <div className="flex-1 h-1.5 bg-slate-800 rounded-full overflow-hidden">
                   <div className="h-full bg-indigo-400 rounded-full transition-all duration-300" style={{ width: `${progress}%` }} />
                 </div>
-                <span className="text-xs text-gray-400 tabular-nums flex-shrink-0">{index + 1} / {queue.length}</span>
+                <span className="text-xs text-slate-500 tabular-nums flex-shrink-0">{index + 1} / {queue.length}</span>
               </div>
 
               {/* Note label */}
               {card && (
-                <p className="text-center text-[10px] font-semibold text-gray-400 uppercase tracking-widest mb-3">
+                <p className="text-center text-[10px] font-semibold text-slate-500 uppercase tracking-widest mb-3">
                   {noteTitle(card.note_id)}
                 </p>
               )}
@@ -181,25 +181,25 @@ export function BriefingStudyModal({ open, briefingTitle, notes, cards: initialC
                   >
                     {/* Front */}
                     <div
-                      className="absolute inset-0 rounded-2xl border-2 border-indigo-200 bg-gradient-to-br from-indigo-50 to-violet-50 flex flex-col items-center justify-center px-8 py-6 shadow-sm"
+                      className="absolute inset-0 rounded-2xl border-2 border-indigo-200 bg-gradient-to-br from-indigo-50 to-violet-50 flex flex-col items-center justify-center px-8 py-6 shadow-lg"
                       style={{ backfaceVisibility: 'hidden' }}
                     >
                       <span className="text-[10px] font-semibold text-indigo-400 uppercase tracking-widest mb-4">
                         {flipMode ? 'Answer' : 'Question'}
                       </span>
-                      <p className="text-xl font-semibold text-gray-900 text-center leading-snug">{front}</p>
+                      <p className="text-xl font-semibold text-slate-100 text-center leading-snug">{front}</p>
                       <span className="text-xs text-indigo-300 mt-5">Click to reveal</span>
                     </div>
 
                     {/* Back */}
                     <div
-                      className="absolute inset-0 rounded-2xl border-2 border-emerald-200 bg-gradient-to-br from-emerald-50 to-teal-50 flex flex-col items-center justify-center px-8 py-6 shadow-sm"
+                      className="absolute inset-0 rounded-2xl border-2 border-emerald-200 bg-gradient-to-br from-emerald-50 to-teal-50 flex flex-col items-center justify-center px-8 py-6 shadow-lg"
                       style={{ backfaceVisibility: 'hidden', transform: 'rotateY(180deg)' }}
                     >
                       <span className="text-[10px] font-semibold text-emerald-500 uppercase tracking-widest mb-4">
                         {flipMode ? 'Question' : 'Answer'}
                       </span>
-                      <p className="text-lg text-gray-800 text-center leading-relaxed">{back}</p>
+                      <p className="text-lg text-slate-200 text-center leading-relaxed">{back}</p>
                     </div>
                   </div>
                 </div>
@@ -216,12 +216,12 @@ export function BriefingStudyModal({ open, briefingTitle, notes, cards: initialC
                     </button>
                   </div>
                 ) : (
-                  <p className="text-xs text-gray-400 mt-6">
-                    Press <kbd className="px-1.5 py-0.5 bg-gray-100 rounded text-gray-500 font-mono">Space</kbd> to flip
+                  <p className="text-xs text-slate-500 mt-6">
+                    Press <kbd className="px-1.5 py-0.5 bg-slate-800 rounded text-slate-400 font-mono">Space</kbd> to flip
                     {' · '}
-                    <kbd className="px-1.5 py-0.5 bg-gray-100 rounded text-gray-500 font-mono">→</kbd> Got it
+                    <kbd className="px-1.5 py-0.5 bg-slate-800 rounded text-slate-400 font-mono">→</kbd> Got it
                     {' · '}
-                    <kbd className="px-1.5 py-0.5 bg-gray-100 rounded text-gray-500 font-mono">←</kbd> Still learning
+                    <kbd className="px-1.5 py-0.5 bg-slate-800 rounded text-slate-400 font-mono">←</kbd> Still learning
                   </p>
                 )}
               </div>
@@ -243,12 +243,12 @@ function CompletionScreen({ queue, known, unknown, onReset, onRestudyUnknown }: 
       <div className="w-16 h-16 bg-indigo-50 rounded-2xl flex items-center justify-center mb-4">
         <Trophy size={28} className="text-indigo-500" />
       </div>
-      <h3 className="text-lg font-bold text-gray-900 mb-1">Round complete!</h3>
-      <p className="text-sm text-gray-500 mb-6">
+      <h3 className="text-lg font-bold text-slate-100 mb-1">Round complete!</h3>
+      <p className="text-sm text-slate-400 mb-6">
         {known.size} known · {unknown.size} to review · {pct}% score
       </p>
 
-      <div className="w-48 h-2 bg-gray-100 rounded-full overflow-hidden mb-6">
+      <div className="w-48 h-2 bg-slate-800 rounded-full overflow-hidden mb-6">
         <div className="h-full bg-indigo-500 rounded-full" style={{ width: `${pct}%` }} />
       </div>
 
@@ -260,7 +260,7 @@ function CompletionScreen({ queue, known, unknown, onReset, onRestudyUnknown }: 
           </button>
         )}
         <button onClick={onReset}
-          className="flex items-center gap-2 px-4 py-2.5 rounded-xl border border-gray-200 text-gray-700 text-sm font-medium hover:bg-gray-50">
+          className="flex items-center gap-2 px-4 py-2.5 rounded-xl border border-slate-700 text-slate-200 text-sm font-medium hover:bg-slate-900/50">
           <RotateCcw size={14} /> Start over
         </button>
       </div>

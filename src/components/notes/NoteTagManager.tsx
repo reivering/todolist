@@ -76,7 +76,7 @@ export function NoteTagManager({ noteId, userId, allTags, noteTags, onTagsChange
         ))}
         <button
           onClick={() => setOpen(!open)}
-          className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs text-gray-400 hover:text-gray-600 hover:bg-gray-100 border border-dashed border-gray-300"
+          className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs text-slate-500 hover:text-slate-300 hover:bg-slate-800 border border-dashed border-gray-300"
         >
           <Tag size={10} />
           Add tag
@@ -84,31 +84,31 @@ export function NoteTagManager({ noteId, userId, allTags, noteTags, onTagsChange
       </div>
 
       {open && (
-        <div className="absolute top-full left-0 mt-1 z-20 bg-white rounded-xl shadow-lg border border-gray-200 p-3 w-64">
-          <p className="text-xs font-semibold text-gray-500 mb-2">Tags</p>
+        <div className="absolute top-full left-0 mt-1 z-20 bg-slate-900 rounded-xl shadow-lg border border-slate-700 p-3 w-64">
+          <p className="text-xs font-semibold text-slate-400 mb-2">Tags</p>
           <div className="space-y-0.5 max-h-40 overflow-y-auto mb-2">
             {allTags.map(tag => (
               <button
                 key={tag.id}
                 onClick={() => toggleTag(tag)}
-                className="w-full flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-gray-50 text-sm"
+                className="w-full flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-slate-900/50 text-sm"
               >
                 <span
                   className="w-2.5 h-2.5 rounded-full flex-shrink-0"
                   style={{ backgroundColor: tag.color }}
                 />
-                <span className="flex-1 text-left text-gray-700">{tag.name}</span>
+                <span className="flex-1 text-left text-slate-200">{tag.name}</span>
                 {noteTagIds.has(tag.id) && (
-                  <span className="text-xs text-blue-600 font-medium">✓</span>
+                  <span className="text-xs text-violet-600 font-medium">✓</span>
                 )}
               </button>
             ))}
             {allTags.length === 0 && (
-              <p className="text-xs text-gray-400 px-2 py-1">No tags yet</p>
+              <p className="text-xs text-slate-500 px-2 py-1">No tags yet</p>
             )}
           </div>
-          <div className="border-t border-gray-100 pt-2">
-            <p className="text-xs font-semibold text-gray-400 mb-1.5">Create tag</p>
+          <div className="border-t border-slate-800 pt-2">
+            <p className="text-xs font-semibold text-slate-500 mb-1.5">Create tag</p>
             <div className="flex gap-1.5 mb-1.5 flex-wrap">
               {TAG_COLORS.map(color => (
                 <button
@@ -129,11 +129,11 @@ export function NoteTagManager({ noteId, userId, allTags, noteTags, onTagsChange
                 onChange={(e) => setNewTagName(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && createTag()}
                 placeholder="Tag name"
-                className="flex-1 px-2 py-1 text-xs border border-gray-200 rounded-lg outline-none focus:ring-1 focus:ring-blue-500"
+                className="flex-1 px-2 py-1 text-xs border border-slate-700 rounded-lg outline-none focus:ring-1 focus:ring-violet-500"
               />
               <button
                 onClick={createTag}
-                className="p-1 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+                className="p-1 bg-violet-600 text-white rounded-lg hover:bg-violet-700"
               >
                 <Plus size={12} />
               </button>
@@ -141,7 +141,7 @@ export function NoteTagManager({ noteId, userId, allTags, noteTags, onTagsChange
           </div>
           <button
             onClick={() => setOpen(false)}
-            className="absolute top-2 right-2 p-1 hover:bg-gray-100 rounded text-gray-400"
+            className="absolute top-2 right-2 p-1 hover:bg-slate-800 rounded text-slate-500"
           >
             <X size={12} />
           </button>

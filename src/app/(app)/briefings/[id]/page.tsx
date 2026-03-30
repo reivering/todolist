@@ -118,7 +118,7 @@ export default function BriefingDetailPage({ params }: PageProps) {
 
   if (!briefing) {
     return (
-      <div className="flex-1 flex items-center justify-center text-sm text-gray-400">
+      <div className="flex-1 flex items-center justify-center text-sm text-slate-500">
         Briefing not found.
       </div>
     )
@@ -127,12 +127,12 @@ export default function BriefingDetailPage({ params }: PageProps) {
   const cardsByNote = (noteId: string) => allCards.filter(c => c.note_id === noteId)
 
   return (
-    <div className="flex-1 flex flex-col min-h-0 bg-gray-50/40">
+    <div className="flex-1 flex flex-col min-h-0 bg-slate-900/40">
       {/* Header */}
-      <div className="bg-white border-b border-gray-100 px-8 py-5">
+      <div className="bg-slate-900 border-b border-slate-800 px-8 py-5">
         <button
           onClick={() => router.push('/briefings')}
-          className="flex items-center gap-1.5 text-xs text-gray-400 hover:text-gray-600 mb-3"
+          className="flex items-center gap-1.5 text-xs text-slate-500 hover:text-slate-300 mb-3"
         >
           <ChevronLeft size={13} /> All briefings
         </button>
@@ -150,26 +150,26 @@ export default function BriefingDetailPage({ params }: PageProps) {
                     value={draftTitle}
                     onChange={e => setDraftTitle(e.target.value)}
                     onKeyDown={e => { if (e.key === 'Enter') saveTitle(); if (e.key === 'Escape') setEditingTitle(false) }}
-                    className="text-xl font-bold text-gray-900 bg-transparent border-b-2 border-indigo-400 outline-none flex-1"
+                    className="text-xl font-bold text-slate-100 bg-transparent border-b-2 border-indigo-400 outline-none flex-1"
                   />
                   <button onClick={saveTitle} className="p-1 hover:bg-green-50 rounded text-green-500"><Check size={15} /></button>
-                  <button onClick={() => setEditingTitle(false)} className="p-1 hover:bg-gray-100 rounded text-gray-400"><X size={15} /></button>
+                  <button onClick={() => setEditingTitle(false)} className="p-1 hover:bg-slate-800 rounded text-slate-500"><X size={15} /></button>
                 </div>
               ) : (
                 <div className="flex items-center gap-2 group">
-                  <h1 className="text-xl font-bold text-gray-900 truncate">{briefing.title}</h1>
+                  <h1 className="text-xl font-bold text-slate-100 truncate">{briefing.title}</h1>
                   <button
                     onClick={() => { setDraftTitle(briefing.title); setEditingTitle(true) }}
-                    className="opacity-0 group-hover:opacity-100 p-1 hover:bg-gray-100 rounded text-gray-400"
+                    className="opacity-0 group-hover:opacity-100 p-1 hover:bg-slate-800 rounded text-slate-500"
                   >
                     <Pencil size={13} />
                   </button>
                 </div>
               )}
               {briefing.description && (
-                <p className="text-sm text-gray-400 mt-0.5">{briefing.description}</p>
+                <p className="text-sm text-slate-500 mt-0.5">{briefing.description}</p>
               )}
-              <p className="text-xs text-gray-300 mt-1">
+              <p className="text-xs text-slate-600 mt-1">
                 {notes.length} note{notes.length !== 1 ? 's' : ''} · {allCards.length} flashcard{allCards.length !== 1 ? 's' : ''} · Updated {formatDate(briefing.updated_at)}
               </p>
             </div>
@@ -180,7 +180,7 @@ export default function BriefingDetailPage({ params }: PageProps) {
             <button
               onClick={() => setShowStudy(true)}
               disabled={allCards.length === 0}
-              className="flex items-center gap-2 px-4 py-2.5 bg-indigo-600 text-white text-sm font-medium rounded-xl hover:bg-indigo-700 disabled:opacity-40 disabled:cursor-not-allowed shadow-sm"
+              className="flex items-center gap-2 px-4 py-2.5 bg-indigo-600 text-white text-sm font-medium rounded-xl hover:bg-indigo-700 disabled:opacity-40 disabled:cursor-not-allowed shadow-lg"
             >
               <Sparkles size={14} /> Study flashcards
             </button>
@@ -192,7 +192,7 @@ export default function BriefingDetailPage({ params }: PageProps) {
       <div className="flex-1 overflow-y-auto p-8">
         {notes.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-16 text-center">
-            <p className="text-sm text-gray-400">All notes have been removed from this briefing.</p>
+            <p className="text-sm text-slate-500">All notes have been removed from this briefing.</p>
             <button onClick={() => router.push('/briefings')} className="mt-3 text-sm text-indigo-500 hover:underline">
               Back to briefings
             </button>
@@ -208,21 +208,21 @@ export default function BriefingDetailPage({ params }: PageProps) {
                 })
               }
               return (
-                <div key={note.id} className="bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-sm">
+                <div key={note.id} className="bg-slate-900 border border-slate-700 rounded-2xl overflow-hidden shadow-lg">
                   {/* Note header — click to collapse/expand */}
                   <div
-                    className="flex items-center justify-between px-5 py-4 cursor-pointer hover:bg-gray-50 transition-colors"
+                    className="flex items-center justify-between px-5 py-4 cursor-pointer hover:bg-slate-900/50 transition-colors"
                     onClick={toggleExpand}
                   >
                     <div className="flex items-center gap-3 min-w-0">
-                      <span className="text-xs font-bold text-gray-300 tabular-nums w-5 flex-shrink-0">{i + 1}</span>
+                      <span className="text-xs font-bold text-slate-600 tabular-nums w-5 flex-shrink-0">{i + 1}</span>
                       <div className="w-7 h-7 bg-violet-50 rounded-lg flex items-center justify-center flex-shrink-0">
                         <FileText size={13} className="text-violet-500" />
                       </div>
                       <div className="min-w-0">
-                        <p className="text-sm font-semibold text-gray-900 truncate">{note.title}</p>
+                        <p className="text-sm font-semibold text-slate-100 truncate">{note.title}</p>
                         {note.folder && (
-                          <p className="text-xs text-gray-400">{(note.folder as { name: string }).name}</p>
+                          <p className="text-xs text-slate-500">{(note.folder as { name: string }).name}</p>
                         )}
                       </div>
                     </div>
@@ -236,33 +236,33 @@ export default function BriefingDetailPage({ params }: PageProps) {
                       </button>
                       <button
                         onClick={() => removeNote(note.id)}
-                        className="p-1.5 hover:bg-red-50 rounded-lg text-gray-300 hover:text-red-400"
+                        className="p-1.5 hover:bg-red-50 rounded-lg text-slate-600 hover:text-red-400"
                         title="Remove from briefing"
                       >
                         <Trash2 size={13} />
                       </button>
-                      <ChevronDown size={14} className={cn('text-gray-400 transition-transform', expanded && 'rotate-180')} />
+                      <ChevronDown size={14} className={cn('text-slate-500 transition-transform', expanded && 'rotate-180')} />
                     </div>
                   </div>
 
                   {/* Note content (the actual briefing material) */}
                   {expanded && (
-                    <div className="px-8 py-5 border-t border-gray-100">
+                    <div className="px-8 py-5 border-t border-slate-800">
                       <NoteContentRenderer content={note.content} />
                     </div>
                   )}
 
                   {/* Flashcard strip */}
-                  <div className={cn('border-t border-gray-100 px-5 py-3', expanded && 'bg-gray-50/60')}>
+                  <div className={cn('border-t border-slate-800 px-5 py-3', expanded && 'bg-slate-900/60')}>
                     {cards.length > 0 ? (
                       <div className="flex items-center gap-2 flex-wrap">
-                        <span className="text-xs text-gray-400 font-medium">Cards:</span>
+                        <span className="text-xs text-slate-500 font-medium">Cards:</span>
                         {cards.slice(0, 4).map(card => (
                           <span key={card.id} className="text-xs bg-violet-50 text-violet-700 border border-violet-100 rounded-lg px-2 py-0.5 truncate max-w-[180px]">
                             {card.front}
                           </span>
                         ))}
-                        {cards.length > 4 && <span className="text-xs text-gray-400">+{cards.length - 4} more</span>}
+                        {cards.length > 4 && <span className="text-xs text-slate-500">+{cards.length - 4} more</span>}
                         <button onClick={() => setFlashcardNote(note)} className="text-xs text-violet-500 hover:text-violet-700 ml-auto">
                           Edit cards →
                         </button>
@@ -270,7 +270,7 @@ export default function BriefingDetailPage({ params }: PageProps) {
                     ) : (
                       <button
                         onClick={() => setFlashcardNote(note)}
-                        className="flex items-center gap-1.5 text-xs text-gray-400 hover:text-violet-600"
+                        className="flex items-center gap-1.5 text-xs text-slate-500 hover:text-violet-600"
                       >
                         <Plus size={12} /> Add flashcards to this note
                       </button>

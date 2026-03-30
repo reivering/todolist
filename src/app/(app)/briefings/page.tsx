@@ -61,17 +61,17 @@ export default function BriefingsPage() {
   }
 
   return (
-    <div className="flex-1 flex flex-col min-h-0 bg-gray-50/40">
+    <div className="flex-1 flex flex-col min-h-0 bg-slate-900/40">
       {/* Header */}
-      <div className="bg-white border-b border-gray-100 px-8 py-5 flex items-center justify-between">
+      <div className="bg-slate-900 border-b border-slate-800 px-8 py-5 flex items-center justify-between">
         <div className="flex items-center gap-3">
           <div className="w-8 h-8 bg-indigo-100 rounded-xl flex items-center justify-center">
             <BookMarked size={16} className="text-indigo-600" />
           </div>
           <div>
-            <h1 className="text-lg font-semibold text-gray-900">Briefings</h1>
+            <h1 className="text-lg font-semibold text-slate-100">Briefings</h1>
             {!loading && (
-              <p className="text-xs text-gray-400">
+              <p className="text-xs text-slate-500">
                 {briefings.length} briefing{briefings.length !== 1 ? 's' : ''}
               </p>
             )}
@@ -79,7 +79,7 @@ export default function BriefingsPage() {
         </div>
         <button
           onClick={() => setShowCreate(true)}
-          className="flex items-center gap-2 px-3.5 py-2 bg-indigo-600 text-white text-sm font-medium rounded-xl hover:bg-indigo-700 shadow-sm"
+          className="flex items-center gap-2 px-3.5 py-2 bg-indigo-600 text-white text-sm font-medium rounded-xl hover:bg-indigo-700 shadow-lg"
         >
           <Plus size={14} /> New briefing
         </button>
@@ -96,8 +96,8 @@ export default function BriefingsPage() {
             <div className="w-16 h-16 bg-indigo-50 rounded-2xl flex items-center justify-center mb-4">
               <BookMarked size={28} className="text-indigo-300" />
             </div>
-            <h2 className="text-base font-semibold text-gray-700 mb-2">No briefings yet</h2>
-            <p className="text-sm text-gray-400 max-w-xs mb-5">
+            <h2 className="text-base font-semibold text-slate-200 mb-2">No briefings yet</h2>
+            <p className="text-sm text-slate-500 max-w-xs mb-5">
               A briefing groups notes together so you can read them and study their flashcards as a set.
             </p>
             <button
@@ -113,7 +113,7 @@ export default function BriefingsPage() {
               <div
                 key={b.id}
                 onClick={() => router.push(`/briefings/${b.id}`)}
-                className="group cursor-pointer text-left bg-white border border-gray-200 rounded-2xl p-5 hover:border-indigo-300 hover:shadow-md transition-all duration-150 flex flex-col gap-3"
+                className="group cursor-pointer text-left bg-slate-900 border border-slate-700 rounded-2xl p-5 hover:border-indigo-300 hover:shadow-md transition-all duration-150 flex flex-col gap-3"
               >
                 <div className="flex items-start justify-between gap-2">
                   <div className="w-9 h-9 bg-indigo-50 rounded-xl flex items-center justify-center flex-shrink-0">
@@ -122,29 +122,29 @@ export default function BriefingsPage() {
                   <div
                     role="button"
                     onClick={(e) => deleteBriefing(b.id, e)}
-                    className="opacity-0 group-hover:opacity-100 p-1.5 hover:bg-red-50 rounded-lg text-gray-300 hover:text-red-400 transition-all flex-shrink-0 cursor-pointer"
+                    className="opacity-0 group-hover:opacity-100 p-1.5 hover:bg-red-50 rounded-lg text-slate-600 hover:text-red-400 transition-all flex-shrink-0 cursor-pointer"
                   >
                     <Trash2 size={13} />
                   </div>
                 </div>
 
                 <div className="flex-1">
-                  <h3 className="text-sm font-semibold text-gray-900 leading-snug">{b.title}</h3>
+                  <h3 className="text-sm font-semibold text-slate-100 leading-snug">{b.title}</h3>
                   {b.description && (
-                    <p className="text-xs text-gray-400 mt-1 line-clamp-2">{b.description}</p>
+                    <p className="text-xs text-slate-500 mt-1 line-clamp-2">{b.description}</p>
                   )}
                 </div>
 
                 <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3 text-xs text-gray-400">
+                  <div className="flex items-center gap-3 text-xs text-slate-500">
                     <span>{b.note_count} note{b.note_count !== 1 ? 's' : ''}</span>
                     <span>·</span>
                     <span>{b.card_count} card{b.card_count !== 1 ? 's' : ''}</span>
                   </div>
-                  <ChevronRight size={14} className="text-gray-300 group-hover:text-indigo-400 transition-colors" />
+                  <ChevronRight size={14} className="text-slate-600 group-hover:text-indigo-400 transition-colors" />
                 </div>
 
-                <p className="text-[11px] text-gray-300">{formatDate(b.updated_at)}</p>
+                <p className="text-[11px] text-slate-600">{formatDate(b.updated_at)}</p>
               </div>
             ))}
           </div>

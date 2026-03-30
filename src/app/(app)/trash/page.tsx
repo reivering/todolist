@@ -73,13 +73,13 @@ export default function TrashPage() {
   const total = notes.length + todos.length
 
   return (
-    <div className="flex flex-col h-full overflow-hidden bg-white">
-      <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100">
+    <div className="flex flex-col h-full overflow-hidden bg-slate-900">
+      <div className="flex items-center justify-between px-6 py-4 border-b border-slate-800">
         <div className="flex items-center gap-3">
-          <Trash2 size={18} className="text-gray-500" />
-          <h1 className="text-lg font-semibold text-gray-900">Trash</h1>
+          <Trash2 size={18} className="text-slate-400" />
+          <h1 className="text-lg font-semibold text-slate-100">Trash</h1>
           {total > 0 && (
-            <span className="px-2 py-0.5 bg-gray-100 text-gray-500 text-xs rounded-full">{total}</span>
+            <span className="px-2 py-0.5 bg-slate-800 text-slate-400 text-xs rounded-full">{total}</span>
           )}
         </div>
         {total > 0 && (
@@ -94,12 +94,12 @@ export default function TrashPage() {
       </div>
 
       {/* Tabs */}
-      <div className="flex gap-1 px-6 pt-3 pb-0 border-b border-gray-100">
+      <div className="flex gap-1 px-6 pt-3 pb-0 border-b border-slate-800">
         <button
           onClick={() => setTab('notes')}
           className={cn(
             'flex items-center gap-1.5 px-3 py-2 text-sm font-medium border-b-2 -mb-px',
-            tab === 'notes' ? 'border-blue-600 text-blue-600' : 'border-transparent text-gray-500 hover:text-gray-700'
+            tab === 'notes' ? 'border-blue-600 text-violet-600' : 'border-transparent text-slate-400 hover:text-slate-200'
           )}
         >
           <FileText size={14} />
@@ -109,7 +109,7 @@ export default function TrashPage() {
           onClick={() => setTab('todos')}
           className={cn(
             'flex items-center gap-1.5 px-3 py-2 text-sm font-medium border-b-2 -mb-px',
-            tab === 'todos' ? 'border-blue-600 text-blue-600' : 'border-transparent text-gray-500 hover:text-gray-700'
+            tab === 'todos' ? 'border-blue-600 text-violet-600' : 'border-transparent text-slate-400 hover:text-slate-200'
           )}
         >
           <CheckSquare size={14} />
@@ -128,16 +128,16 @@ export default function TrashPage() {
           ) : (
             <div className="space-y-2">
               {notes.map(note => (
-                <div key={note.id} className="flex items-start gap-3 p-3.5 bg-gray-50 rounded-xl border border-gray-200 group">
-                  <FileText size={15} className="text-gray-400 mt-0.5 flex-shrink-0" />
+                <div key={note.id} className="flex items-start gap-3 p-3.5 bg-slate-900/50 rounded-xl border border-slate-700 group">
+                  <FileText size={15} className="text-slate-500 mt-0.5 flex-shrink-0" />
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium text-gray-700 truncate">{note.title || 'Untitled'}</p>
-                    <p className="text-xs text-gray-400 mt-0.5">Deleted {formatRelativeDate(note.updated_at)}</p>
+                    <p className="text-sm font-medium text-slate-200 truncate">{note.title || 'Untitled'}</p>
+                    <p className="text-xs text-slate-500 mt-0.5">Deleted {formatRelativeDate(note.updated_at)}</p>
                   </div>
                   <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100">
                     <button
                       onClick={() => restoreNote(note.id)}
-                      className="flex items-center gap-1 px-2.5 py-1 text-xs text-gray-600 hover:bg-white rounded-lg border border-gray-200"
+                      className="flex items-center gap-1 px-2.5 py-1 text-xs text-slate-300 hover:bg-slate-900 rounded-lg border border-slate-700"
                       title="Restore"
                     >
                       <RotateCcw size={11} />
@@ -162,16 +162,16 @@ export default function TrashPage() {
           ) : (
             <div className="space-y-2">
               {todos.map(todo => (
-                <div key={todo.id} className="flex items-start gap-3 p-3.5 bg-gray-50 rounded-xl border border-gray-200 group">
+                <div key={todo.id} className="flex items-start gap-3 p-3.5 bg-slate-900/50 rounded-xl border border-slate-700 group">
                   <div className={cn('w-4 h-4 rounded-full border-2 mt-0.5 flex-shrink-0', PRIORITY_COLORS[todo.priority].border)} />
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium text-gray-700 truncate">{todo.title}</p>
-                    <p className="text-xs text-gray-400 mt-0.5">Deleted {formatRelativeDate(todo.updated_at)}</p>
+                    <p className="text-sm font-medium text-slate-200 truncate">{todo.title}</p>
+                    <p className="text-xs text-slate-500 mt-0.5">Deleted {formatRelativeDate(todo.updated_at)}</p>
                   </div>
                   <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100">
                     <button
                       onClick={() => restoreTodo(todo.id)}
-                      className="flex items-center gap-1 px-2.5 py-1 text-xs text-gray-600 hover:bg-white rounded-lg border border-gray-200"
+                      className="flex items-center gap-1 px-2.5 py-1 text-xs text-slate-300 hover:bg-slate-900 rounded-lg border border-slate-700"
                     >
                       <RotateCcw size={11} />
                       Restore

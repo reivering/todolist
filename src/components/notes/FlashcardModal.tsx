@@ -222,28 +222,28 @@ export function FlashcardModal({ note, userId, open, onClose }: FlashcardModalPr
     <div className="fixed inset-0 z-50 flex items-center justify-center">
       <div className="absolute inset-0 bg-black/30 backdrop-blur-sm" onClick={onClose} />
 
-      <div className="relative bg-white rounded-2xl shadow-2xl border border-gray-200 w-full max-w-2xl mx-4 flex flex-col"
+      <div className="relative bg-slate-900 rounded-2xl shadow-2xl border border-slate-700 w-full max-w-2xl mx-4 flex flex-col"
         style={{ maxHeight: '85vh' }}>
 
         {/* Header */}
-        <div className="flex items-center justify-between px-5 py-4 border-b border-gray-100">
+        <div className="flex items-center justify-between px-5 py-4 border-b border-slate-800">
           <div className="flex items-center gap-3">
             <div className="w-8 h-8 bg-violet-100 rounded-lg flex items-center justify-center">
               <Layers size={15} className="text-violet-600" />
             </div>
             <div>
-              <h2 className="text-sm font-semibold text-gray-900">Flashcards</h2>
-              <p className="text-xs text-gray-400 truncate max-w-[200px]">{note.title}</p>
+              <h2 className="text-sm font-semibold text-slate-100">Flashcards</h2>
+              <p className="text-xs text-slate-500 truncate max-w-[200px]">{note.title}</p>
             </div>
           </div>
 
           <div className="flex items-center gap-2">
             {/* Tabs */}
-            <div className="flex bg-gray-100 rounded-lg p-0.5 gap-0.5">
+            <div className="flex bg-slate-800 rounded-lg p-0.5 gap-0.5">
               <button
                 onClick={() => { setTab('deck'); resetStudy() }}
                 className={cn('flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium transition-all',
-                  tab === 'deck' ? 'bg-white text-gray-900 shadow-sm' : 'text-gray-500 hover:text-gray-700')}
+                  tab === 'deck' ? 'bg-slate-900 text-slate-100 shadow-lg' : 'text-slate-400 hover:text-slate-200')}
               >
                 <BookOpen size={12} /> Deck
               </button>
@@ -251,13 +251,13 @@ export function FlashcardModal({ note, userId, open, onClose }: FlashcardModalPr
                 onClick={() => { setTab('study'); resetStudy(shuffled, flipMode, cards) }}
                 disabled={cards.length === 0}
                 className={cn('flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium transition-all',
-                  tab === 'study' ? 'bg-white text-gray-900 shadow-sm' : 'text-gray-500 hover:text-gray-700',
+                  tab === 'study' ? 'bg-slate-900 text-slate-100 shadow-lg' : 'text-slate-400 hover:text-slate-200',
                   cards.length === 0 && 'opacity-40 cursor-not-allowed')}
               >
                 <Sparkles size={12} /> Study
               </button>
             </div>
-            <button onClick={onClose} className="p-1.5 hover:bg-gray-100 rounded-lg text-gray-400">
+            <button onClick={onClose} className="p-1.5 hover:bg-slate-800 rounded-lg text-slate-500">
               <X size={15} />
             </button>
           </div>
@@ -336,8 +336,8 @@ function DeckTab({
   return (
     <div className="flex flex-col flex-1 overflow-hidden">
       {/* Toolbar */}
-      <div className="flex items-center justify-between px-5 py-3 border-b border-gray-100">
-        <span className="text-xs text-gray-400 font-medium">
+      <div className="flex items-center justify-between px-5 py-3 border-b border-slate-800">
+        <span className="text-xs text-slate-500 font-medium">
           {cards.length} card{cards.length !== 1 ? 's' : ''}
         </span>
         <div className="flex items-center gap-2">
@@ -371,7 +371,7 @@ function DeckTab({
                   onChange={e => setNewFront(e.target.value)}
                   placeholder="Question or term…"
                   rows={3}
-                  className="w-full mt-1 px-3 py-2 text-sm border border-violet-200 rounded-lg outline-none focus:ring-2 focus:ring-violet-400 resize-none bg-white"
+                  className="w-full mt-1 px-3 py-2 text-sm border border-violet-200 rounded-lg outline-none focus:ring-2 focus:ring-violet-400 resize-none bg-slate-900"
                 />
               </div>
               <div>
@@ -382,12 +382,12 @@ function DeckTab({
                   onKeyDown={e => e.key === 'Enter' && e.metaKey && onAdd()}
                   placeholder="Answer or definition…"
                   rows={3}
-                  className="w-full mt-1 px-3 py-2 text-sm border border-violet-200 rounded-lg outline-none focus:ring-2 focus:ring-violet-400 resize-none bg-white"
+                  className="w-full mt-1 px-3 py-2 text-sm border border-violet-200 rounded-lg outline-none focus:ring-2 focus:ring-violet-400 resize-none bg-slate-900"
                 />
               </div>
             </div>
             <div className="flex gap-2 justify-end">
-              <button onClick={onCancelAdd} className="px-3 py-1.5 text-xs rounded-lg border border-gray-200 text-gray-600 hover:bg-gray-50">Cancel</button>
+              <button onClick={onCancelAdd} className="px-3 py-1.5 text-xs rounded-lg border border-slate-700 text-slate-300 hover:bg-slate-900/50">Cancel</button>
               <button onClick={onAdd} disabled={!newFront.trim() || !newBack.trim()}
                 className="px-3 py-1.5 text-xs rounded-lg bg-violet-600 text-white hover:bg-violet-700 disabled:opacity-40">
                 Save card
@@ -402,28 +402,28 @@ function DeckTab({
             <div className="w-12 h-12 bg-violet-50 rounded-2xl flex items-center justify-center mb-3">
               <Layers size={22} className="text-violet-400" />
             </div>
-            <p className="text-sm font-medium text-gray-600 mb-1">No flashcards yet</p>
-            <p className="text-xs text-gray-400 max-w-[220px]">Add cards manually or extract them from your note's headings and bold text.</p>
+            <p className="text-sm font-medium text-slate-300 mb-1">No flashcards yet</p>
+            <p className="text-xs text-slate-500 max-w-[220px]">Add cards manually or extract them from your note's headings and bold text.</p>
           </div>
         ) : (
           cards.map((card, i) => (
-            <div key={card.id} className="group border border-gray-200 rounded-xl overflow-hidden hover:border-violet-200 hover:shadow-sm">
+            <div key={card.id} className="group border border-slate-700 rounded-xl overflow-hidden hover:border-violet-200 hover:shadow-lg">
               {editingId === card.id ? (
                 <div className="p-4 bg-violet-50/30">
                   <div className="grid grid-cols-2 gap-3 mb-3">
                     <div>
                       <label className="text-[10px] font-semibold text-violet-500 uppercase tracking-wider">Front</label>
                       <textarea value={editFront} onChange={e => setEditFront(e.target.value)} rows={3}
-                        className="w-full mt-1 px-3 py-2 text-sm border border-violet-200 rounded-lg outline-none focus:ring-2 focus:ring-violet-400 resize-none bg-white" />
+                        className="w-full mt-1 px-3 py-2 text-sm border border-violet-200 rounded-lg outline-none focus:ring-2 focus:ring-violet-400 resize-none bg-slate-900" />
                     </div>
                     <div>
                       <label className="text-[10px] font-semibold text-violet-500 uppercase tracking-wider">Back</label>
                       <textarea value={editBack} onChange={e => setEditBack(e.target.value)} rows={3}
-                        className="w-full mt-1 px-3 py-2 text-sm border border-violet-200 rounded-lg outline-none focus:ring-2 focus:ring-violet-400 resize-none bg-white" />
+                        className="w-full mt-1 px-3 py-2 text-sm border border-violet-200 rounded-lg outline-none focus:ring-2 focus:ring-violet-400 resize-none bg-slate-900" />
                     </div>
                   </div>
                   <div className="flex gap-2 justify-end">
-                    <button onClick={onCancelEdit} className="px-3 py-1.5 text-xs rounded-lg border border-gray-200 text-gray-600 hover:bg-gray-50">Cancel</button>
+                    <button onClick={onCancelEdit} className="px-3 py-1.5 text-xs rounded-lg border border-slate-700 text-slate-300 hover:bg-slate-900/50">Cancel</button>
                     <button onClick={() => onSaveEdit(card.id)} className="px-3 py-1.5 text-xs rounded-lg bg-violet-600 text-white hover:bg-violet-700">Save</button>
                   </div>
                 </div>
@@ -431,22 +431,22 @@ function DeckTab({
                 <div className="grid grid-cols-2 divide-x divide-gray-100">
                   <div className="px-4 py-3">
                     <div className="text-[10px] font-semibold text-violet-400 uppercase tracking-wider mb-1">Front</div>
-                    <p className="text-sm text-gray-800 leading-relaxed">{card.front}</p>
+                    <p className="text-sm text-slate-200 leading-relaxed">{card.front}</p>
                   </div>
-                  <div className="px-4 py-3 bg-gray-50/50">
-                    <div className="text-[10px] font-semibold text-gray-400 uppercase tracking-wider mb-1">Back</div>
-                    <p className="text-sm text-gray-600 leading-relaxed">{card.back}</p>
+                  <div className="px-4 py-3 bg-slate-900/50">
+                    <div className="text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-1">Back</div>
+                    <p className="text-sm text-slate-300 leading-relaxed">{card.back}</p>
                   </div>
                 </div>
               )}
               {editingId !== card.id && (
-                <div className="opacity-0 group-hover:opacity-100 flex items-center justify-between px-4 py-2 border-t border-gray-100 bg-gray-50/50">
-                  <span className="text-[10px] text-gray-400">Card {i + 1}</span>
+                <div className="opacity-0 group-hover:opacity-100 flex items-center justify-between px-4 py-2 border-t border-slate-800 bg-slate-900/50">
+                  <span className="text-[10px] text-slate-500">Card {i + 1}</span>
                   <div className="flex items-center gap-1">
-                    <button onClick={() => onStartEdit(card)} className="p-1 hover:bg-white rounded text-gray-400 hover:text-violet-600">
+                    <button onClick={() => onStartEdit(card)} className="p-1 hover:bg-slate-900 rounded text-slate-500 hover:text-violet-600">
                       <Pencil size={11} />
                     </button>
-                    <button onClick={() => onDelete(card.id)} className="p-1 hover:bg-white rounded text-gray-400 hover:text-red-500">
+                    <button onClick={() => onDelete(card.id)} className="p-1 hover:bg-slate-900 rounded text-slate-500 hover:text-red-500">
                       <Trash2 size={11} />
                     </button>
                   </div>
@@ -478,7 +478,7 @@ function StudyTab({
   if (cards.length === 0) {
     return (
       <div className="flex-1 flex items-center justify-center p-8 text-center">
-        <p className="text-sm text-gray-400">Add some cards to the deck first.</p>
+        <p className="text-sm text-slate-500">Add some cards to the deck first.</p>
       </div>
     )
   }
@@ -492,11 +492,11 @@ function StudyTab({
         <div className="w-16 h-16 bg-violet-50 rounded-2xl flex items-center justify-center mb-4">
           <Trophy size={28} className="text-violet-500" />
         </div>
-        <h3 className="text-lg font-bold text-gray-900 mb-1">Round complete!</h3>
-        <p className="text-sm text-gray-500 mb-6">{knownCount} known · {unknownCount} to review · {pct}% score</p>
+        <h3 className="text-lg font-bold text-slate-100 mb-1">Round complete!</h3>
+        <p className="text-sm text-slate-400 mb-6">{knownCount} known · {unknownCount} to review · {pct}% score</p>
 
         {/* Score bar */}
-        <div className="w-48 h-2 bg-gray-100 rounded-full overflow-hidden mb-6">
+        <div className="w-48 h-2 bg-slate-800 rounded-full overflow-hidden mb-6">
           <div className="h-full bg-violet-500 rounded-full" style={{ width: `${pct}%` }} />
         </div>
 
@@ -508,7 +508,7 @@ function StudyTab({
             </button>
           )}
           <button onClick={onReset}
-            className="flex items-center gap-2 px-4 py-2.5 rounded-xl border border-gray-200 text-gray-700 text-sm font-medium hover:bg-gray-50">
+            className="flex items-center gap-2 px-4 py-2.5 rounded-xl border border-slate-700 text-slate-200 text-sm font-medium hover:bg-slate-900/50">
             <RotateCcw size={14} /> Start over
           </button>
         </div>
@@ -520,19 +520,19 @@ function StudyTab({
     <div className="flex-1 flex flex-col p-6">
       {/* Header with toggles */}
       <div className="flex items-center justify-between mb-4">
-        <span className="text-xs text-gray-400 font-medium">{cards.length} card{cards.length !== 1 ? 's' : ''}</span>
+        <span className="text-xs text-slate-500 font-medium">{cards.length} card{cards.length !== 1 ? 's' : ''}</span>
         <div className="flex items-center gap-1.5">
           <button
             onClick={onToggleShuffle}
             title="Shuffle"
-            className={cn('p-2 rounded-lg transition-colors', shuffled ? 'bg-violet-100 text-violet-600' : 'text-gray-400 hover:bg-gray-100')}
+            className={cn('p-2 rounded-lg transition-colors', shuffled ? 'bg-violet-100 text-violet-600' : 'text-slate-500 hover:bg-slate-800')}
           >
             <Shuffle size={14} />
           </button>
           <button
             onClick={onToggleFlipMode}
             title="Flip mode (answer → question)"
-            className={cn('p-2 rounded-lg transition-colors', flipMode ? 'bg-violet-100 text-violet-600' : 'text-gray-400 hover:bg-gray-100')}
+            className={cn('p-2 rounded-lg transition-colors', flipMode ? 'bg-violet-100 text-violet-600' : 'text-slate-500 hover:bg-slate-800')}
           >
             <ArrowLeftRight size={14} />
           </button>
@@ -541,10 +541,10 @@ function StudyTab({
 
       {/* Progress bar */}
       <div className="flex items-center gap-3 mb-6">
-        <div className="flex-1 h-1.5 bg-gray-100 rounded-full overflow-hidden">
+        <div className="flex-1 h-1.5 bg-slate-800 rounded-full overflow-hidden">
           <div className="h-full bg-violet-400 rounded-full transition-all duration-300" style={{ width: `${progress}%` }} />
         </div>
-        <span className="text-xs text-gray-400 tabular-nums flex-shrink-0">{index + 1} / {cards.length}</span>
+        <span className="text-xs text-slate-500 tabular-nums flex-shrink-0">{index + 1} / {cards.length}</span>
       </div>
 
       {/* Flip card */}
@@ -565,21 +565,21 @@ function StudyTab({
           >
             {/* Front */}
             <div
-              className="absolute inset-0 rounded-2xl border-2 border-violet-200 bg-gradient-to-br from-violet-50 to-indigo-50 flex flex-col items-center justify-center px-8 py-6 shadow-sm"
+              className="absolute inset-0 rounded-2xl border-2 border-violet-200 bg-gradient-to-br from-violet-50 to-indigo-50 flex flex-col items-center justify-center px-8 py-6 shadow-lg"
               style={{ backfaceVisibility: 'hidden' }}
             >
               <span className="text-[10px] font-semibold text-violet-400 uppercase tracking-widest mb-4">Question</span>
-              <p className="text-xl font-semibold text-gray-900 text-center leading-snug">{card?.front}</p>
+              <p className="text-xl font-semibold text-slate-100 text-center leading-snug">{card?.front}</p>
               <span className="text-xs text-violet-300 mt-5">Click to reveal answer</span>
             </div>
 
             {/* Back */}
             <div
-              className="absolute inset-0 rounded-2xl border-2 border-emerald-200 bg-gradient-to-br from-emerald-50 to-teal-50 flex flex-col items-center justify-center px-8 py-6 shadow-sm"
+              className="absolute inset-0 rounded-2xl border-2 border-emerald-200 bg-gradient-to-br from-emerald-50 to-teal-50 flex flex-col items-center justify-center px-8 py-6 shadow-lg"
               style={{ backfaceVisibility: 'hidden', transform: 'rotateY(180deg)' }}
             >
               <span className="text-[10px] font-semibold text-emerald-500 uppercase tracking-widest mb-4">Answer</span>
-              <p className="text-lg text-gray-800 text-center leading-relaxed">{card?.back}</p>
+              <p className="text-lg text-slate-200 text-center leading-relaxed">{card?.back}</p>
             </div>
           </div>
         </div>
@@ -597,12 +597,12 @@ function StudyTab({
             </button>
           </div>
         ) : (
-          <p className="text-xs text-gray-400 mt-6">
-            Press <kbd className="px-1.5 py-0.5 bg-gray-100 rounded text-gray-500 font-mono">Space</kbd> to flip
+          <p className="text-xs text-slate-500 mt-6">
+            Press <kbd className="px-1.5 py-0.5 bg-slate-800 rounded text-slate-400 font-mono">Space</kbd> to flip
             {' · '}
-            <kbd className="px-1.5 py-0.5 bg-gray-100 rounded text-gray-500 font-mono">→</kbd> Got it
+            <kbd className="px-1.5 py-0.5 bg-slate-800 rounded text-slate-400 font-mono">→</kbd> Got it
             {' · '}
-            <kbd className="px-1.5 py-0.5 bg-gray-100 rounded text-gray-500 font-mono">←</kbd> Still learning
+            <kbd className="px-1.5 py-0.5 bg-slate-800 rounded text-slate-400 font-mono">←</kbd> Still learning
           </p>
         )}
       </div>

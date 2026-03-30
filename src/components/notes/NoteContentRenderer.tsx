@@ -19,7 +19,7 @@ function renderMarks(text: string, marks: Mark[] = []): React.ReactNode {
       case 'italic':    node = <em>{node}</em>; break
       case 'underline': node = <u>{node}</u>; break
       case 'strike':    node = <s>{node}</s>; break
-      case 'code':      node = <code className="bg-gray-100 px-1 py-0.5 rounded text-sm font-mono">{node}</code>; break
+      case 'code':      node = <code className="bg-slate-800 px-1 py-0.5 rounded text-sm font-mono">{node}</code>; break
       case 'highlight': node = <mark className="bg-yellow-200">{node}</mark>; break
     }
   }
@@ -36,7 +36,7 @@ function renderNode(node: Node, key: number): React.ReactNode {
 
     case 'paragraph':
       return (
-        <p key={key} className="mb-3 leading-relaxed text-gray-700 empty:min-h-[1.5em]">
+        <p key={key} className="mb-3 leading-relaxed text-slate-200 empty:min-h-[1.5em]">
           {node.content?.map((n, i) => renderNode(n, i))}
         </p>
       )
@@ -46,7 +46,7 @@ function renderNode(node: Node, key: number): React.ReactNode {
       const Tag = `h${level}` as keyof React.JSX.IntrinsicElements
       const sizes: Record<number, string> = { 1: 'text-2xl font-bold mt-6 mb-2', 2: 'text-xl font-bold mt-5 mb-2', 3: 'text-lg font-semibold mt-4 mb-1.5', 4: 'text-base font-semibold mt-3 mb-1', 5: 'text-sm font-semibold mt-2 mb-1', 6: 'text-sm font-medium mt-2 mb-1' }
       return (
-        <Tag key={key} className={cn('text-gray-900', sizes[level] ?? sizes[1])}>
+        <Tag key={key} className={cn('text-slate-100', sizes[level] ?? sizes[1])}>
           {node.content?.map((n, i) => renderNode(n, i))}
         </Tag>
       )
@@ -54,14 +54,14 @@ function renderNode(node: Node, key: number): React.ReactNode {
 
     case 'bulletList':
       return (
-        <ul key={key} className="list-disc list-inside mb-3 space-y-1 text-gray-700">
+        <ul key={key} className="list-disc list-inside mb-3 space-y-1 text-slate-200">
           {node.content?.map((n, i) => renderNode(n, i))}
         </ul>
       )
 
     case 'orderedList':
       return (
-        <ol key={key} className="list-decimal list-inside mb-3 space-y-1 text-gray-700">
+        <ol key={key} className="list-decimal list-inside mb-3 space-y-1 text-slate-200">
           {node.content?.map((n, i) => renderNode(n, i))}
         </ol>
       )
@@ -75,7 +75,7 @@ function renderNode(node: Node, key: number): React.ReactNode {
 
     case 'blockquote':
       return (
-        <blockquote key={key} className="border-l-4 border-violet-300 pl-4 my-3 italic text-gray-500">
+        <blockquote key={key} className="border-l-4 border-violet-300 pl-4 my-3 italic text-slate-400">
           {node.content?.map((n, i) => renderNode(n, i))}
         </blockquote>
       )
@@ -88,7 +88,7 @@ function renderNode(node: Node, key: number): React.ReactNode {
       )
 
     case 'horizontalRule':
-      return <hr key={key} className="my-4 border-gray-200" />
+      return <hr key={key} className="my-4 border-slate-700" />
 
     case 'taskList':
       return (
@@ -99,9 +99,9 @@ function renderNode(node: Node, key: number): React.ReactNode {
 
     case 'taskItem':
       return (
-        <li key={key} className="flex items-start gap-2 text-gray-700">
+        <li key={key} className="flex items-start gap-2 text-slate-200">
           <span className={cn('mt-1 w-3.5 h-3.5 rounded border flex-shrink-0', node.attrs?.checked ? 'bg-violet-500 border-violet-500' : 'border-gray-400')} />
-          <span className={cn((node.attrs?.checked as boolean) && 'line-through text-gray-400')}>
+          <span className={cn((node.attrs?.checked as boolean) && 'line-through text-slate-500')}>
             {node.content?.map((n, i) => renderNode(n, i))}
           </span>
         </li>
@@ -118,12 +118,12 @@ interface NoteContentRendererProps {
 }
 
 export function NoteContentRenderer({ content, className }: NoteContentRendererProps) {
-  if (!content) return <p className="text-sm text-gray-400 italic">No content</p>
+  if (!content) return <p className="text-sm text-slate-500 italic">No content</p>
 
   const doc = content as { content?: Node[] }
   const blocks = doc.content ?? []
 
-  if (blocks.length === 0) return <p className="text-sm text-gray-400 italic">No content</p>
+  if (blocks.length === 0) return <p className="text-sm text-slate-500 italic">No content</p>
 
   return (
     <div className={cn('text-sm', className)}>

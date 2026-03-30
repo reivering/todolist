@@ -196,16 +196,16 @@ export default function TodosPage() {
   const totalOverdue = todos.filter(t => isOverdue(t.due_date) && !t.is_completed && !t.is_trashed).length
 
   return (
-    <div className="flex flex-col h-full overflow-hidden bg-white">
+    <div className="flex flex-col h-full overflow-hidden bg-slate-900">
       {/* Header */}
-      <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100">
+      <div className="flex items-center justify-between px-6 py-4 border-b border-slate-800">
         <div>
-          <h1 className="text-base font-semibold text-gray-900">
+          <h1 className="text-base font-semibold text-slate-100">
             {projectId ? 'Project' : 'All Todos'}
           </h1>
           <div className="flex items-center gap-3 mt-0.5">
-            <span className="text-xs text-gray-400">{totalActive} active</span>
-            {totalCompleted > 0 && <span className="text-xs text-gray-400">{totalCompleted} done</span>}
+            <span className="text-xs text-slate-500">{totalActive} active</span>
+            {totalCompleted > 0 && <span className="text-xs text-slate-500">{totalCompleted} done</span>}
             {totalOverdue > 0 && <span className="text-xs text-red-500 font-medium">{totalOverdue} overdue</span>}
           </div>
         </div>
@@ -216,7 +216,7 @@ export default function TodosPage() {
               onClick={() => { setShowFilter(!showFilter); setShowSort(false) }}
               className={cn(
                 'flex items-center gap-1.5 px-3 py-1.5 text-sm rounded-lg border',
-                filter !== 'all' ? 'border-blue-300 text-blue-600 bg-blue-50' : 'border-gray-200 text-gray-600 hover:bg-gray-50'
+                filter !== 'all' ? 'border-blue-300 text-violet-600 bg-blue-50' : 'border-slate-700 text-slate-300 hover:bg-slate-900/50'
               )}
             >
               <Filter size={13} />
@@ -226,12 +226,12 @@ export default function TodosPage() {
             {showFilter && (
               <>
                 <div className="fixed inset-0 z-10" onClick={() => setShowFilter(false)} />
-                <div className="absolute right-0 top-full mt-1 z-20 bg-white rounded-xl shadow-lg border border-gray-200 py-1 w-40">
+                <div className="absolute right-0 top-full mt-1 z-20 bg-slate-900 rounded-xl shadow-lg border border-slate-700 py-1 w-40">
                   {FILTERS.map(f => (
                     <button
                       key={f.value}
                       onClick={() => { setFilter(f.value); setShowFilter(false) }}
-                      className={cn('w-full text-left px-3 py-1.5 text-sm hover:bg-gray-50', filter === f.value && 'text-blue-600 font-medium')}
+                      className={cn('w-full text-left px-3 py-1.5 text-sm hover:bg-slate-900/50', filter === f.value && 'text-violet-600 font-medium')}
                     >
                       {f.label}
                     </button>
@@ -247,7 +247,7 @@ export default function TodosPage() {
               onClick={() => { setShowSort(!showSort); setShowFilter(false) }}
               className={cn(
                 'flex items-center gap-1.5 px-3 py-1.5 text-sm rounded-lg border',
-                sort !== 'manual' ? 'border-blue-300 text-blue-600 bg-blue-50' : 'border-gray-200 text-gray-600 hover:bg-gray-50'
+                sort !== 'manual' ? 'border-blue-300 text-violet-600 bg-blue-50' : 'border-slate-700 text-slate-300 hover:bg-slate-900/50'
               )}
             >
               <SortAsc size={13} />
@@ -257,12 +257,12 @@ export default function TodosPage() {
             {showSort && (
               <>
                 <div className="fixed inset-0 z-10" onClick={() => setShowSort(false)} />
-                <div className="absolute right-0 top-full mt-1 z-20 bg-white rounded-xl shadow-lg border border-gray-200 py-1 w-36">
+                <div className="absolute right-0 top-full mt-1 z-20 bg-slate-900 rounded-xl shadow-lg border border-slate-700 py-1 w-36">
                   {SORTS.map(s => (
                     <button
                       key={s.value}
                       onClick={() => { setSort(s.value); setShowSort(false) }}
-                      className={cn('w-full text-left px-3 py-1.5 text-sm hover:bg-gray-50', sort === s.value && 'text-blue-600 font-medium')}
+                      className={cn('w-full text-left px-3 py-1.5 text-sm hover:bg-slate-900/50', sort === s.value && 'text-violet-600 font-medium')}
                     >
                       {s.label}
                     </button>
@@ -274,14 +274,14 @@ export default function TodosPage() {
 
           <button
             onClick={() => setShowVoice(true)}
-            className="flex items-center gap-1.5 px-3 py-1.5 bg-white border border-gray-200 text-gray-600 text-sm rounded-lg hover:bg-gray-50"
+            className="flex items-center gap-1.5 px-3 py-1.5 bg-slate-900 border border-slate-700 text-slate-300 text-sm rounded-lg hover:bg-slate-900/50"
             title="Voice dictation"
           >
             <Mic size={14} />
           </button>
           <button
             onClick={() => setShowNewTodoForm(true)}
-            className="flex items-center gap-1.5 px-3 py-1.5 bg-blue-600 text-white text-sm rounded-lg hover:bg-blue-700"
+            className="flex items-center gap-1.5 px-3 py-1.5 bg-violet-600 text-white text-sm rounded-lg hover:bg-violet-700"
           >
             <Plus size={14} />
             New todo
@@ -291,20 +291,20 @@ export default function TodosPage() {
 
       {/* New todo form */}
       {showNewTodoForm && (
-        <div className="px-6 py-3 border-b border-gray-100 bg-gray-50">
-          <div className="bg-white border border-gray-200 rounded-xl p-3">
+        <div className="px-6 py-3 border-b border-slate-800 bg-slate-900/50">
+          <div className="bg-slate-900 border border-slate-700 rounded-xl p-3">
             <input
               autoFocus
               value={newTodoTitle}
               onChange={(e) => setNewTodoTitle(e.target.value)}
               onKeyDown={(e) => { if (e.key === 'Enter') createTodo(); if (e.key === 'Escape') setShowNewTodoForm(false) }}
               placeholder="Todo title…"
-              className="w-full text-sm font-medium outline-none text-gray-900 placeholder:text-gray-400 mb-2"
+              className="w-full text-sm font-medium outline-none text-slate-100 placeholder:text-slate-500 mb-2"
             />
             <div className="flex items-center gap-3">
               {/* Priority selector */}
               <div className="flex items-center gap-1">
-                <Flag size={12} className="text-gray-400" />
+                <Flag size={12} className="text-slate-500" />
                 {(['high', 'medium', 'low'] as Priority[]).map(p => (
                   <button
                     key={p}
@@ -313,7 +313,7 @@ export default function TodosPage() {
                       'px-2 py-0.5 rounded text-xs font-medium border',
                       newTodoPriority === p
                         ? cn(PRIORITY_COLORS[p].bg, PRIORITY_COLORS[p].text, PRIORITY_COLORS[p].border)
-                        : 'text-gray-400 border-gray-200 hover:border-gray-300'
+                        : 'text-slate-500 border-slate-700 hover:border-gray-300'
                     )}
                   >
                     {p}
@@ -322,22 +322,22 @@ export default function TodosPage() {
               </div>
               {/* Due date */}
               <div className="flex items-center gap-1">
-                <Calendar size={12} className="text-gray-400" />
+                <Calendar size={12} className="text-slate-500" />
                 <input
                   type="date"
                   value={newTodoDueDate}
                   onChange={(e) => setNewTodoDueDate(e.target.value)}
-                  className="text-xs text-gray-600 outline-none border border-gray-200 rounded px-1.5 py-0.5"
+                  className="text-xs text-slate-300 outline-none border border-slate-700 rounded px-1.5 py-0.5"
                 />
               </div>
               <div className="flex-1" />
-              <button onClick={() => setShowNewTodoForm(false)} className="p-1 hover:bg-gray-100 rounded text-gray-400">
+              <button onClick={() => setShowNewTodoForm(false)} className="p-1 hover:bg-slate-800 rounded text-slate-500">
                 <X size={14} />
               </button>
               <button
                 onClick={createTodo}
                 disabled={!newTodoTitle.trim()}
-                className="px-3 py-1 bg-blue-600 text-white text-xs rounded-lg hover:bg-blue-700 disabled:opacity-50"
+                className="px-3 py-1 bg-violet-600 text-white text-xs rounded-lg hover:bg-violet-700 disabled:opacity-50"
               >
                 Add
               </button>
@@ -360,14 +360,14 @@ export default function TodosPage() {
             action={filter === 'all' ? (
               <button
                 onClick={() => setShowNewTodoForm(true)}
-                className="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm hover:bg-blue-700"
+                className="px-4 py-2 bg-violet-600 text-white rounded-lg text-sm hover:bg-violet-700"
               >
                 New todo
               </button>
             ) : (
               <button
                 onClick={() => setFilter('all')}
-                className="px-4 py-2 border border-gray-200 text-gray-600 rounded-lg text-sm hover:bg-gray-50"
+                className="px-4 py-2 border border-slate-700 text-slate-300 rounded-lg text-sm hover:bg-slate-900/50"
               >
                 Clear filter
               </button>
@@ -394,7 +394,7 @@ export default function TodosPage() {
               {/* Completed todos (collapsed) */}
               {completedTodos.length > 0 && (
                 <details className="mt-4" open={filter === 'completed'}>
-                  <summary className="cursor-pointer text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2 flex items-center gap-2 hover:text-gray-600 list-none">
+                  <summary className="cursor-pointer text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2 flex items-center gap-2 hover:text-slate-300 list-none">
                     <ChevronDown size={12} />
                     Completed ({completedTodos.length})
                   </summary>

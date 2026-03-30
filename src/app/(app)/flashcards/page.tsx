@@ -59,16 +59,16 @@ export default function FlashcardsPage() {
   const totalCards = decks.reduce((sum, d) => sum + d.cards.length, 0)
 
   return (
-    <div className="flex-1 flex flex-col min-h-0 bg-gray-50/40">
+    <div className="flex-1 flex flex-col min-h-0 bg-slate-900/40">
       {/* Header */}
-      <div className="bg-white border-b border-gray-100 px-8 py-5">
+      <div className="bg-slate-900 border-b border-slate-800 px-8 py-5">
         <div className="flex items-center gap-3 mb-1">
           <div className="w-8 h-8 bg-violet-100 rounded-xl flex items-center justify-center">
             <Layers size={16} className="text-violet-600" />
           </div>
-          <h1 className="text-lg font-semibold text-gray-900">Flashcards</h1>
+          <h1 className="text-lg font-semibold text-slate-100">Flashcards</h1>
         </div>
-        <p className="text-sm text-gray-400 ml-11">
+        <p className="text-sm text-slate-500 ml-11">
           {loading ? '…' : `${decks.length} deck${decks.length !== 1 ? 's' : ''} · ${totalCards} card${totalCards !== 1 ? 's' : ''} total`}
         </p>
       </div>
@@ -84,8 +84,8 @@ export default function FlashcardsPage() {
             <div className="w-16 h-16 bg-violet-50 rounded-2xl flex items-center justify-center mb-4">
               <Layers size={28} className="text-violet-300" />
             </div>
-            <h2 className="text-base font-semibold text-gray-700 mb-2">No flashcard decks yet</h2>
-            <p className="text-sm text-gray-400 max-w-xs">
+            <h2 className="text-base font-semibold text-slate-200 mb-2">No flashcard decks yet</h2>
+            <p className="text-sm text-slate-500 max-w-xs">
               Open any note and click <strong>Flashcards</strong> in the toolbar to create your first deck.
             </p>
           </div>
@@ -121,7 +121,7 @@ function DeckCard({ deck, onStudy }: { deck: DeckInfo; onStudy: () => void }) {
   return (
     <button
       onClick={onStudy}
-      className="group text-left bg-white border border-gray-200 rounded-2xl p-5 hover:border-violet-300 hover:shadow-md transition-all duration-150 flex flex-col gap-4"
+      className="group text-left bg-slate-900 border border-slate-700 rounded-2xl p-5 hover:border-violet-300 hover:shadow-md transition-all duration-150 flex flex-col gap-4"
     >
       {/* Note icon + title */}
       <div className="flex items-start gap-3">
@@ -129,8 +129,8 @@ function DeckCard({ deck, onStudy }: { deck: DeckInfo; onStudy: () => void }) {
           <FileText size={16} className="text-violet-500" />
         </div>
         <div className="min-w-0 flex-1">
-          <p className="text-sm font-semibold text-gray-900 truncate leading-snug">{deck.note.title}</p>
-          <p className="text-xs text-gray-400 mt-0.5">{count} card{count !== 1 ? 's' : ''}</p>
+          <p className="text-sm font-semibold text-slate-100 truncate leading-snug">{deck.note.title}</p>
+          <p className="text-xs text-slate-500 mt-0.5">{count} card{count !== 1 ? 's' : ''}</p>
         </div>
       </div>
 
@@ -138,12 +138,12 @@ function DeckCard({ deck, onStudy }: { deck: DeckInfo; onStudy: () => void }) {
       {preview.length > 0 && (
         <div className="space-y-1.5">
           {preview.map(card => (
-            <div key={card.id} className="text-xs text-gray-500 bg-gray-50 rounded-lg px-3 py-2 truncate">
+            <div key={card.id} className="text-xs text-slate-400 bg-slate-900/50 rounded-lg px-3 py-2 truncate">
               {card.front}
             </div>
           ))}
           {count > 2 && (
-            <p className="text-xs text-gray-400 pl-1">+{count - 2} more…</p>
+            <p className="text-xs text-slate-500 pl-1">+{count - 2} more…</p>
           )}
         </div>
       )}

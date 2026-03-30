@@ -177,15 +177,15 @@ export default function NotesPage() {
   return (
     <div className="flex h-full overflow-hidden">
       {/* Notes list panel */}
-      <div className="w-64 flex flex-col border-r border-gray-100 bg-gray-50/40">
-        <div className="flex items-center justify-between px-4 py-3 border-b border-gray-100">
+      <div className="w-64 flex flex-col border-r border-slate-800 bg-slate-900/40">
+        <div className="flex items-center justify-between px-4 py-3 border-b border-slate-800">
           <div>
-            <h2 className="text-sm font-semibold text-gray-800">{title}</h2>
-            {notes.length > 0 && <p className="text-xs text-gray-400 mt-0.5">{notes.length} note{notes.length !== 1 ? 's' : ''}</p>}
+            <h2 className="text-sm font-semibold text-slate-200">{title}</h2>
+            {notes.length > 0 && <p className="text-xs text-slate-500 mt-0.5">{notes.length} note{notes.length !== 1 ? 's' : ''}</p>}
           </div>
           <button
             onClick={createNote}
-            className="p-1.5 bg-violet-600 text-white rounded-lg hover:bg-violet-700 shadow-sm"
+            className="p-1.5 bg-violet-600 text-white rounded-lg hover:bg-violet-700 shadow-lg"
             title="New note (⌘N)"
           >
             <Plus size={14} />
@@ -202,7 +202,7 @@ export default function NotesPage() {
             title="No notes yet"
             description="Create your first note to get started."
             action={
-              <button onClick={createNote} className="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm hover:bg-blue-700">
+              <button onClick={createNote} className="px-4 py-2 bg-violet-600 text-white rounded-lg text-sm hover:bg-violet-700">
                 New note
               </button>
             }
@@ -213,11 +213,11 @@ export default function NotesPage() {
       </div>
 
       {/* Editor panel */}
-      <div className="flex-1 flex flex-col min-h-0 bg-white">
+      <div className="flex-1 flex flex-col min-h-0 bg-slate-900">
         {selectedNote ? (
           <>
             {/* Note toolbar */}
-            <div className="flex items-center justify-between px-5 py-2 border-b border-gray-100 relative z-10 bg-white">
+            <div className="flex items-center justify-between px-5 py-2 border-b border-slate-800 relative z-10 bg-slate-900">
               <div className="flex items-center gap-2">
                 <NoteTagManager
                   noteId={selectedNote.id}
@@ -246,7 +246,7 @@ export default function NotesPage() {
                 <div className="relative">
                   <button
                     onClick={() => { setShowMoveMenu(!showMoveMenu); setShowActionsMenu(false) }}
-                    className="flex items-center gap-1 px-2.5 py-1.5 text-xs text-gray-500 hover:bg-gray-100 rounded-lg border border-gray-200"
+                    className="flex items-center gap-1 px-2.5 py-1.5 text-xs text-slate-400 hover:bg-slate-800 rounded-lg border border-slate-700"
                     title="Move to folder"
                   >
                     <FolderInput size={13} />
@@ -254,10 +254,10 @@ export default function NotesPage() {
                     <ChevronDown size={11} />
                   </button>
                   {showMoveMenu && (
-                    <div className="absolute right-0 top-full mt-1 z-20 bg-white rounded-xl shadow-lg border border-gray-200 py-1 w-48">
+                    <div className="absolute right-0 top-full mt-1 z-20 bg-slate-900 rounded-xl shadow-lg border border-slate-700 py-1 w-48">
                       <button
                         onClick={() => moveToFolder(null)}
-                        className="w-full text-left px-3 py-1.5 text-sm text-gray-600 hover:bg-gray-50"
+                        className="w-full text-left px-3 py-1.5 text-sm text-slate-300 hover:bg-slate-900/50"
                       >
                         No folder
                       </button>
@@ -265,7 +265,7 @@ export default function NotesPage() {
                         <button
                           key={f.id}
                           onClick={() => moveToFolder(f.id)}
-                          className="w-full text-left px-3 py-1.5 text-sm text-gray-600 hover:bg-gray-50"
+                          className="w-full text-left px-3 py-1.5 text-sm text-slate-300 hover:bg-slate-900/50"
                         >
                           {f.name}
                         </button>
@@ -278,15 +278,15 @@ export default function NotesPage() {
                 <div className="relative">
                   <button
                     onClick={() => { setShowActionsMenu(!showActionsMenu); setShowMoveMenu(false) }}
-                    className="p-1.5 text-gray-400 hover:bg-gray-100 rounded-lg"
+                    className="p-1.5 text-slate-500 hover:bg-slate-800 rounded-lg"
                   >
                     <MoreHorizontal size={16} />
                   </button>
                   {showActionsMenu && (
-                    <div className="absolute right-0 top-full mt-1 z-20 bg-white rounded-xl shadow-lg border border-gray-200 py-1 w-52">
+                    <div className="absolute right-0 top-full mt-1 z-20 bg-slate-900 rounded-xl shadow-lg border border-slate-700 py-1 w-52">
                       <button
                         onClick={togglePin}
-                        className="w-full text-left px-3 py-1.5 text-sm text-gray-600 hover:bg-gray-50 flex items-center gap-2"
+                        className="w-full text-left px-3 py-1.5 text-sm text-slate-300 hover:bg-slate-900/50 flex items-center gap-2"
                       >
                         {selectedNote.is_pinned ? <PinOff size={14} /> : <Pin size={14} />}
                         {selectedNote.is_pinned ? 'Unpin' : 'Pin note'}
@@ -297,19 +297,19 @@ export default function NotesPage() {
                         <div className="relative">
                           <button
                             onClick={() => setShowBriefingMenu(b => !b)}
-                            className="w-full text-left px-3 py-1.5 text-sm text-gray-600 hover:bg-gray-50 flex items-center gap-2"
+                            className="w-full text-left px-3 py-1.5 text-sm text-slate-300 hover:bg-slate-900/50 flex items-center gap-2"
                           >
                             <BookMarked size={14} />
                             Add to briefing
                             <ChevronDown size={11} className={cn('ml-auto transition-transform', showBriefingMenu && 'rotate-180')} />
                           </button>
                           {showBriefingMenu && (
-                            <div className="border-t border-gray-100 bg-gray-50/60 py-1">
+                            <div className="border-t border-slate-800 bg-slate-900/60 py-1">
                               {briefings.map(b => (
                                 <button
                                   key={b.id}
                                   onClick={() => addToBriefing(b.id)}
-                                  className="w-full text-left px-5 py-1.5 text-sm text-gray-600 hover:bg-gray-100 truncate"
+                                  className="w-full text-left px-5 py-1.5 text-sm text-slate-300 hover:bg-slate-800 truncate"
                                 >
                                   {b.title}
                                 </button>
@@ -319,7 +319,7 @@ export default function NotesPage() {
                         </div>
                       )}
 
-                      <div className="border-t border-gray-100 mt-1 pt-1">
+                      <div className="border-t border-slate-800 mt-1 pt-1">
                         <button
                           onClick={() => { setConfirmDelete(true); setShowActionsMenu(false) }}
                           className="w-full text-left px-3 py-1.5 text-sm text-red-600 hover:bg-red-50 flex items-center gap-2"

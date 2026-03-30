@@ -124,7 +124,7 @@ export function NoteEditor({ note, onSave }: NoteEditorProps) {
   return (
     <div className="flex flex-col min-h-0 flex-1">
       {/* Toolbar */}
-      <div className="flex items-center gap-0.5 px-5 py-2 border-b border-gray-100 bg-gray-50/60 flex-wrap relative">
+      <div className="flex items-center gap-0.5 px-5 py-2 border-b border-slate-800 bg-slate-900/60 flex-wrap relative">
         <ToolbarGroup>
           <ToolbarBtn onClick={() => editor.chain().focus().toggleBold().run()} active={editor.isActive('bold')} title="Bold (⌘B)"><Bold size={13} /></ToolbarBtn>
           <ToolbarBtn onClick={() => editor.chain().focus().toggleItalic().run()} active={editor.isActive('italic')} title="Italic (⌘I)"><Italic size={13} /></ToolbarBtn>
@@ -166,7 +166,7 @@ export function NoteEditor({ note, onSave }: NoteEditorProps) {
               'flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-medium transition-colors',
               recording
                 ? 'bg-red-100 text-red-600 hover:bg-red-200'
-                : 'text-gray-400 hover:bg-gray-100 hover:text-gray-700'
+                : 'text-slate-500 hover:bg-slate-800 hover:text-slate-200'
             )}
           >
             {recording ? <MicOff size={13} /> : <Mic size={13} />}
@@ -185,18 +185,18 @@ export function NoteEditor({ note, onSave }: NoteEditorProps) {
             onKeyDown={handleTitleKeyDown}
             placeholder="Untitled"
             rows={1}
-            className="w-full text-[2rem] font-bold text-gray-900 resize-none outline-none placeholder:text-gray-200 mb-5 bg-transparent overflow-hidden leading-tight"
+            className="w-full text-[2rem] font-bold text-slate-100 resize-none outline-none placeholder:text-slate-600 mb-5 bg-transparent overflow-hidden leading-tight"
           />
           <EditorContent editor={editor} className="min-h-[200px]" />
         </div>
       </div>
 
       {/* Footer */}
-      <div className="flex items-center justify-between px-10 py-2 border-t border-gray-100 bg-gray-50/50">
-        <span className="text-xs text-gray-400">
+      <div className="flex items-center justify-between px-10 py-2 border-t border-slate-800 bg-slate-900/50">
+        <span className="text-xs text-slate-500">
           {wordCount > 0 ? `${wordCount} word${wordCount !== 1 ? 's' : ''}` : 'Empty'}
         </span>
-        <span className="text-xs text-gray-400">Auto-saved</span>
+        <span className="text-xs text-slate-500">Auto-saved</span>
       </div>
     </div>
   )
@@ -207,7 +207,7 @@ function ToolbarGroup({ children }: { children: React.ReactNode }) {
 }
 
 function Divider() {
-  return <div className="w-px h-4 bg-gray-200 mx-1.5" />
+  return <div className="w-px h-4 bg-slate-700 mx-1.5" />
 }
 
 function ToolbarBtn({ children, onClick, active, title }: {
@@ -222,7 +222,7 @@ function ToolbarBtn({ children, onClick, active, title }: {
         'p-1.5 rounded-md text-sm transition-colors',
         active
           ? 'bg-violet-100 text-violet-700'
-          : 'text-gray-400 hover:bg-gray-100 hover:text-gray-700'
+          : 'text-slate-500 hover:bg-slate-800 hover:text-slate-200'
       )}
     >
       {children}

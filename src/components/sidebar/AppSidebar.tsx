@@ -160,27 +160,27 @@ export function AppSidebar({ userId }: AppSidebarProps) {
         onConfirm={modal.onConfirm}
         onCancel={closeModal}
       />
-      <div className="w-[52px] border-r border-gray-100 flex flex-col items-center pt-3 pb-4 gap-1 bg-white">
-        <button onClick={() => setCollapsed(false)} className="p-2 hover:bg-gray-100 rounded-lg text-gray-400 mb-2">
+      <div className="w-[52px] border-r border-slate-800 flex flex-col items-center pt-3 pb-4 gap-1 bg-slate-900">
+        <button onClick={() => setCollapsed(false)} className="p-2 hover:bg-slate-800 rounded-lg text-slate-500 mb-2">
           <PanelLeft size={16} />
         </button>
-        <Link href="/notes" title="Notes" className={cn('p-2 rounded-lg', pathname.startsWith('/notes') ? 'bg-violet-100 text-violet-600' : 'text-gray-400 hover:bg-gray-100')}>
+        <Link href="/notes" title="Notes" className={cn('p-2 rounded-lg', pathname.startsWith('/notes') ? 'bg-violet-100 text-violet-600' : 'text-slate-500 hover:bg-slate-800')}>
           <FileText size={17} />
         </Link>
-        <Link href="/todos" title="Todos" className={cn('p-2 rounded-lg', pathname.startsWith('/todos') ? 'bg-blue-100 text-blue-600' : 'text-gray-400 hover:bg-gray-100')}>
+        <Link href="/todos" title="Todos" className={cn('p-2 rounded-lg', pathname.startsWith('/todos') ? 'bg-violet-100 text-violet-600' : 'text-slate-500 hover:bg-slate-800')}>
           <CheckSquare size={17} />
         </Link>
-        <Link href="/flashcards" title="Flashcards" className={cn('p-2 rounded-lg', pathname.startsWith('/flashcards') ? 'bg-violet-100 text-violet-600' : 'text-gray-400 hover:bg-gray-100')}>
+        <Link href="/flashcards" title="Flashcards" className={cn('p-2 rounded-lg', pathname.startsWith('/flashcards') ? 'bg-violet-100 text-violet-600' : 'text-slate-500 hover:bg-slate-800')}>
           <Layers size={16} />
         </Link>
-        <Link href="/briefings" title="Briefings" className={cn('p-2 rounded-lg', pathname.startsWith('/briefings') ? 'bg-indigo-100 text-indigo-600' : 'text-gray-400 hover:bg-gray-100')}>
+        <Link href="/briefings" title="Briefings" className={cn('p-2 rounded-lg', pathname.startsWith('/briefings') ? 'bg-indigo-100 text-indigo-600' : 'text-slate-500 hover:bg-slate-800')}>
           <BookMarked size={16} />
         </Link>
-        <Link href="/trash" title="Trash" className={cn('p-2 rounded-lg mt-1', isTrashActive ? 'bg-gray-100 text-gray-700' : 'text-gray-400 hover:bg-gray-100')}>
+        <Link href="/trash" title="Trash" className={cn('p-2 rounded-lg mt-1', isTrashActive ? 'bg-slate-800 text-slate-200' : 'text-slate-500 hover:bg-slate-800')}>
           <Trash2 size={16} />
         </Link>
         <div className="mt-auto">
-          <button onClick={handleLogout} title="Sign out" className="p-2 hover:bg-gray-100 rounded-lg text-gray-300 hover:text-gray-500">
+          <button onClick={handleLogout} title="Sign out" className="p-2 hover:bg-slate-800 rounded-lg text-slate-600 hover:text-slate-400">
             <LogOut size={15} />
           </button>
         </div>
@@ -199,16 +199,16 @@ export function AppSidebar({ userId }: AppSidebarProps) {
       onConfirm={modal.onConfirm}
       onCancel={closeModal}
     />
-    <div className="w-60 border-r border-gray-100 flex flex-col bg-white overflow-hidden select-none">
+    <div className="w-60 border-r border-slate-800 flex flex-col bg-slate-900 overflow-hidden select-none">
       {/* Branding */}
       <div className="flex items-center justify-between px-4 pt-4 pb-3">
         <div className="flex items-center gap-2.5">
-          <div className="w-7 h-7 bg-gradient-to-br from-violet-500 to-blue-600 rounded-lg flex items-center justify-center shadow-sm">
+          <div className="w-7 h-7 bg-gradient-to-br from-violet-500 to-blue-600 rounded-lg flex items-center justify-center shadow-lg">
             <Sparkles size={13} className="text-white" />
           </div>
-          <span className="text-sm font-semibold text-gray-900 tracking-tight">Workspace</span>
+          <span className="text-sm font-semibold text-slate-100 tracking-tight">Workspace</span>
         </div>
-        <button onClick={() => setCollapsed(true)} className="p-1.5 hover:bg-gray-100 rounded-lg text-gray-400">
+        <button onClick={() => setCollapsed(true)} className="p-1.5 hover:bg-slate-800 rounded-lg text-slate-500">
           <PanelLeftClose size={15} />
         </button>
       </div>
@@ -216,16 +216,16 @@ export function AppSidebar({ userId }: AppSidebarProps) {
       {/* Search */}
       <div className="px-3 pb-3">
         <form onSubmit={handleSearch}>
-          <div className="flex items-center gap-2 bg-gray-50 border border-gray-200 rounded-lg px-2.5 py-1.5 focus-within:bg-white focus-within:ring-2 focus-within:ring-violet-400 focus-within:border-transparent">
-            <Search size={13} className="text-gray-400 flex-shrink-0" />
+          <div className="flex items-center gap-2 bg-slate-900/50 border border-slate-700 rounded-lg px-2.5 py-1.5 focus-within:bg-slate-900 focus-within:ring-2 focus-within:ring-violet-400 focus-within:border-transparent">
+            <Search size={13} className="text-slate-500 flex-shrink-0" />
             <input
               type="text"
               placeholder="Search…"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="flex-1 text-sm bg-transparent outline-none text-gray-700 placeholder:text-gray-400 min-w-0"
+              className="flex-1 text-sm bg-transparent outline-none text-slate-200 placeholder:text-slate-500 min-w-0"
             />
-            <kbd className="hidden sm:block text-[10px] text-gray-300 font-mono">⌘K</kbd>
+            <kbd className="hidden sm:block text-[10px] text-slate-600 font-mono">⌘K</kbd>
           </div>
         </form>
       </div>
@@ -240,10 +240,10 @@ export function AppSidebar({ userId }: AppSidebarProps) {
           onToggle={() => setNotesExpanded(!notesExpanded)}
           actions={
             <>
-              <button onClick={() => createSideNote()} title="New note" className="p-0.5 hover:bg-gray-100 rounded text-gray-400 hover:text-gray-600">
+              <button onClick={() => createSideNote()} title="New note" className="p-0.5 hover:bg-slate-800 rounded text-slate-500 hover:text-slate-300">
                 <FilePlus size={13} />
               </button>
-              <button onClick={() => createFolder()} title="New folder" className="p-0.5 hover:bg-gray-100 rounded text-gray-400 hover:text-gray-600">
+              <button onClick={() => createFolder()} title="New folder" className="p-0.5 hover:bg-slate-800 rounded text-slate-500 hover:text-slate-300">
                 <FolderPlus size={13} />
               </button>
             </>
@@ -309,7 +309,7 @@ export function AppSidebar({ userId }: AppSidebarProps) {
           expanded={todosExpanded}
           onToggle={() => setTodosExpanded(!todosExpanded)}
           actions={
-            <button onClick={createProject} title="New project" className="p-0.5 hover:bg-gray-100 rounded text-gray-400 hover:text-gray-600">
+            <button onClick={createProject} title="New project" className="p-0.5 hover:bg-slate-800 rounded text-slate-500 hover:text-slate-300">
               <FolderPlus size={13} />
             </button>
           }
@@ -321,7 +321,7 @@ export function AppSidebar({ userId }: AppSidebarProps) {
               href="/todos"
               active={pathname === '/todos' && !new URLSearchParams(typeof window !== 'undefined' ? window.location.search : '').has('project')}
               icon={<CheckSquare size={14} />}
-              iconBg="bg-blue-100 text-blue-600"
+              iconBg="bg-violet-100 text-violet-600"
               label="All Todos"
             />
 
@@ -339,7 +339,7 @@ export function AppSidebar({ userId }: AppSidebarProps) {
           </>
         )}
 
-        <div className="pt-2 border-t border-gray-100 mt-2">
+        <div className="pt-2 border-t border-slate-800 mt-2">
           <NavLink
             href="/flashcards"
             active={pathname.startsWith('/flashcards')}
@@ -358,19 +358,19 @@ export function AppSidebar({ userId }: AppSidebarProps) {
             href="/trash"
             active={isTrashActive}
             icon={<Trash2 size={14} />}
-            iconBg="bg-gray-100 text-gray-500"
+            iconBg="bg-slate-800 text-slate-400"
             label="Trash"
           />
         </div>
       </div>
 
       {/* Footer */}
-      <div className="border-t border-gray-100 p-2">
+      <div className="border-t border-slate-800 p-2">
         <button
           onClick={handleLogout}
-          className="w-full flex items-center gap-2.5 px-3 py-2 text-sm text-gray-500 hover:text-gray-800 hover:bg-gray-50 rounded-lg"
+          className="w-full flex items-center gap-2.5 px-3 py-2 text-sm text-slate-400 hover:text-slate-200 hover:bg-slate-900/50 rounded-lg"
         >
-          <LogOut size={14} className="text-gray-400" />
+          <LogOut size={14} className="text-slate-500" />
           Sign out
         </button>
       </div>
@@ -386,7 +386,7 @@ function SectionHeader({ label, expanded, onToggle, actions }: {
 }) {
   return (
     <div className="flex items-center justify-between px-2 py-1 group">
-      <button onClick={onToggle} className="flex items-center gap-1 text-xs font-semibold text-gray-400 uppercase tracking-wider hover:text-gray-600">
+      <button onClick={onToggle} className="flex items-center gap-1 text-xs font-semibold text-slate-500 uppercase tracking-wider hover:text-slate-300">
         {expanded ? <ChevronDown size={11} /> : <ChevronRight size={11} />}
         {label}
       </button>
@@ -405,7 +405,7 @@ function NavLink({ href, active, icon, iconBg, iconColor, label }: {
       href={href}
       className={cn(
         'flex items-center gap-2.5 px-2 py-1.5 rounded-lg text-sm',
-        active ? 'bg-gray-100 text-gray-900 font-medium' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+        active ? 'bg-slate-800 text-slate-100 font-medium' : 'text-slate-300 hover:bg-slate-900/50 hover:text-slate-100'
       )}
     >
       <span
@@ -436,10 +436,10 @@ function FolderRow({ folder, allFolders, expanded, onToggle, onDelete, onCreateS
         onDrop={onDrop}
         className={cn(
           'group flex items-center gap-1 px-2 py-1.5 rounded-lg transition-colors',
-          dragOver ? 'bg-amber-100 ring-2 ring-amber-300' : isActive ? 'bg-gray-100 text-gray-900' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+          dragOver ? 'bg-amber-100 ring-2 ring-amber-300' : isActive ? 'bg-slate-800 text-slate-100' : 'text-slate-300 hover:bg-slate-900/50 hover:text-slate-100'
         )}
       >
-        <button onClick={onToggle} className="flex-shrink-0 text-gray-400 hover:text-gray-600 w-4">
+        <button onClick={onToggle} className="flex-shrink-0 text-slate-500 hover:text-slate-300 w-4">
           {children.length > 0
             ? (expanded ? <ChevronDown size={12} /> : <ChevronRight size={12} />)
             : null}
@@ -460,13 +460,13 @@ function FolderRow({ folder, allFolders, expanded, onToggle, onDelete, onCreateS
           </Link>
         )}
         <div className="opacity-0 group-hover:opacity-100 flex items-center gap-0.5 flex-shrink-0">
-          <button onClick={() => onCreateNote(folder.id)} className="p-0.5 hover:bg-gray-200 rounded text-gray-400 hover:text-gray-600" title="New file">
+          <button onClick={() => onCreateNote(folder.id)} className="p-0.5 hover:bg-slate-700 rounded text-slate-500 hover:text-slate-300" title="New file">
             <FilePlus size={12} strokeWidth={2} />
           </button>
-          <button onClick={() => onCreateSub(folder.id)} className="p-0.5 hover:bg-gray-200 rounded text-gray-400 hover:text-gray-600" title="New folder">
+          <button onClick={() => onCreateSub(folder.id)} className="p-0.5 hover:bg-slate-700 rounded text-slate-500 hover:text-slate-300" title="New folder">
             <FolderPlus size={12} strokeWidth={2} />
           </button>
-          <button onClick={(e) => onDelete(folder.id, e)} className="p-0.5 hover:bg-red-50 rounded text-gray-400 hover:text-red-500" title="Delete">
+          <button onClick={(e) => onDelete(folder.id, e)} className="p-0.5 hover:bg-red-50 rounded text-slate-500 hover:text-red-500" title="Delete">
             <Trash2 size={12} strokeWidth={2} />
           </button>
         </div>
@@ -491,7 +491,7 @@ function ProjectRow({ project, onDelete, onRename, renaming, onRenameSubmit, pat
   const isActive = typeof window !== 'undefined' && new URLSearchParams(window.location.search).get('project') === project.id
 
   return (
-    <div className={cn('group flex items-center gap-2 px-2 py-1.5 rounded-lg', isActive ? 'bg-gray-100 text-gray-900' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900')}>
+    <div className={cn('group flex items-center gap-2 px-2 py-1.5 rounded-lg', isActive ? 'bg-slate-800 text-slate-100' : 'text-slate-300 hover:bg-slate-900/50 hover:text-slate-100')}>
       <span className="w-5 h-5 rounded-md bg-blue-50 text-blue-500 flex items-center justify-center flex-shrink-0 text-[10px] font-bold">
         {project.name.charAt(0).toUpperCase()}
       </span>
@@ -507,7 +507,7 @@ function ProjectRow({ project, onDelete, onRename, renaming, onRenameSubmit, pat
         </Link>
       )}
       <div className="opacity-0 group-hover:opacity-100 flex items-center gap-0.5 flex-shrink-0">
-        <button onClick={(e) => onDelete(project.id, e)} className="p-0.5 hover:bg-red-50 rounded text-gray-400 hover:text-red-500">
+        <button onClick={(e) => onDelete(project.id, e)} className="p-0.5 hover:bg-red-50 rounded text-slate-500 hover:text-red-500">
           <Trash2 size={10} />
         </button>
       </div>

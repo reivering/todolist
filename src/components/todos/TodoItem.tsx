@@ -105,16 +105,16 @@ export function TodoItem({ todo, onUpdate, onDelete, onSubtaskChange }: TodoItem
       ref={setNodeRef}
       style={style}
       className={cn(
-        'group bg-white border border-gray-200 rounded-xl mb-2 overflow-hidden border-l-[3px] transition-shadow',
+        'group bg-slate-900 border border-slate-700 rounded-xl mb-2 overflow-hidden border-l-[3px] transition-shadow',
         PRIORITY_BORDER[todo.priority],
-        isDragging ? 'shadow-xl ring-2 ring-blue-200' : 'hover:shadow-sm',
+        isDragging ? 'shadow-xl ring-2 ring-blue-200' : 'hover:shadow-lg',
         todo.is_completed && 'opacity-55'
       )}
     >
       <div className="flex items-start gap-2 px-3 py-3">
         {/* Drag */}
         <button {...attributes} {...listeners}
-          className="mt-0.5 text-gray-300 hover:text-gray-500 cursor-grab active:cursor-grabbing opacity-0 group-hover:opacity-100 flex-shrink-0 touch-none">
+          className="mt-0.5 text-slate-600 hover:text-slate-400 cursor-grab active:cursor-grabbing opacity-0 group-hover:opacity-100 flex-shrink-0 touch-none">
           <GripVertical size={14} />
         </button>
 
@@ -137,11 +137,11 @@ export function TodoItem({ todo, onUpdate, onDelete, onSubtaskChange }: TodoItem
                 onChange={(e) => setTitle(e.target.value)}
                 onBlur={saveTitle}
                 onKeyDown={(e) => { if (e.key === 'Enter') saveTitle(); if (e.key === 'Escape') { setTitle(todo.title); setEditingTitle(false) } }}
-                className="flex-1 text-sm font-medium text-gray-900 outline-none bg-transparent border-b-2 border-blue-400"
+                className="flex-1 text-sm font-medium text-slate-100 outline-none bg-transparent border-b-2 border-blue-400"
               />
             ) : (
               <span
-                className={cn('flex-1 text-sm font-medium cursor-text', todo.is_completed ? 'line-through text-gray-400' : 'text-gray-800')}
+                className={cn('flex-1 text-sm font-medium cursor-text', todo.is_completed ? 'line-through text-slate-500' : 'text-slate-200')}
                 onClick={() => setEditingTitle(true)}
               >
                 {todo.title}
@@ -158,7 +158,7 @@ export function TodoItem({ todo, onUpdate, onDelete, onSubtaskChange }: TodoItem
             {todo.due_date && (
               <span className={cn(
                 'flex items-center gap-1 text-xs px-1.5 py-0.5 rounded-md',
-                overdue ? 'bg-red-50 text-red-600 font-medium' : 'text-gray-400'
+                overdue ? 'bg-red-50 text-red-600 font-medium' : 'text-slate-500'
               )}>
                 <Calendar size={10} />
                 {formatDate(todo.due_date)}{overdue && ' · Overdue'}
@@ -166,10 +166,10 @@ export function TodoItem({ todo, onUpdate, onDelete, onSubtaskChange }: TodoItem
             )}
             {subtasks.length > 0 && (
               <div className="flex items-center gap-1.5">
-                <div className="w-16 h-1.5 bg-gray-100 rounded-full overflow-hidden">
+                <div className="w-16 h-1.5 bg-slate-800 rounded-full overflow-hidden">
                   <div className="h-full bg-blue-400 rounded-full transition-all" style={{ width: `${progress}%` }} />
                 </div>
-                <span className="text-xs text-gray-400">{completedSubtasks}/{subtasks.length}</span>
+                <span className="text-xs text-slate-500">{completedSubtasks}/{subtasks.length}</span>
               </div>
             )}
           </div>
@@ -177,25 +177,25 @@ export function TodoItem({ todo, onUpdate, onDelete, onSubtaskChange }: TodoItem
 
         {/* Actions */}
         <div className="flex items-center gap-0.5 opacity-0 group-hover:opacity-100 flex-shrink-0 mt-0.5">
-          <button onClick={() => setExpanded(!expanded)} className="p-1 hover:bg-gray-100 rounded-lg text-gray-400 hover:text-gray-600">
+          <button onClick={() => setExpanded(!expanded)} className="p-1 hover:bg-slate-800 rounded-lg text-slate-500 hover:text-slate-300">
             {expanded ? <ChevronDown size={13} /> : <ChevronRight size={13} />}
           </button>
           <div className="relative">
-            <button ref={menuBtnRef} onClick={openMenu} className="p-1 hover:bg-gray-100 rounded-lg text-gray-400 hover:text-gray-600">
+            <button ref={menuBtnRef} onClick={openMenu} className="p-1 hover:bg-slate-800 rounded-lg text-slate-500 hover:text-slate-300">
               <MoreHorizontal size={13} />
             </button>
             {showMenu && typeof document !== 'undefined' && createPortal(
               <>
                 <div className="fixed inset-0 z-40" onClick={() => setShowMenu(false)} />
                 <div
-                  className="fixed z-50 bg-white rounded-2xl border border-gray-200/80 p-2 w-48"
+                  className="fixed z-50 bg-slate-900 rounded-2xl border border-slate-700/80 p-2 w-48"
                   style={{
                     top: menuPos.top,
                     right: menuPos.right,
                     boxShadow: '0 12px 40px rgba(0,0,0,0.15), 0 4px 12px rgba(0,0,0,0.08)',
                   }}
                 >
-                  <p className="px-2 pt-1 pb-2 text-[10px] font-semibold text-gray-400 uppercase tracking-widest">Priority</p>
+                  <p className="px-2 pt-1 pb-2 text-[10px] font-semibold text-slate-500 uppercase tracking-widest">Priority</p>
                   {([
                     { p: 'high',   label: 'High',   bg: 'hover:bg-red-50',    active: 'bg-red-50 ring-1 ring-red-200',    dot: 'bg-red-500',    text: 'text-red-700'    },
                     { p: 'medium', label: 'Medium', bg: 'hover:bg-amber-50',  active: 'bg-amber-50 ring-1 ring-amber-200',dot: 'bg-amber-400',  text: 'text-amber-700'  },
@@ -205,11 +205,11 @@ export function TodoItem({ todo, onUpdate, onDelete, onSubtaskChange }: TodoItem
                       className={cn('w-full text-left px-3 py-2 rounded-xl text-sm flex items-center gap-2.5 transition-colors', todo.priority === p ? active : bg)}
                     >
                       <span className={cn('w-2.5 h-2.5 rounded-full flex-shrink-0', dot)} />
-                      <span className={cn('font-medium', todo.priority === p ? text : 'text-gray-700')}>{label}</span>
+                      <span className={cn('font-medium', todo.priority === p ? text : 'text-slate-200')}>{label}</span>
                       {todo.priority === p && <Check size={13} className={cn('ml-auto', text)} strokeWidth={2.5} />}
                     </button>
                   ))}
-                  <div className="border-t border-gray-100 mt-2 pt-2">
+                  <div className="border-t border-slate-800 mt-2 pt-2">
                     <button onClick={trashTodo} className="w-full text-left px-3 py-2 rounded-xl text-sm text-red-500 hover:bg-red-50 flex items-center gap-2.5 transition-colors">
                       <Trash2 size={13} /> Move to trash
                     </button>
@@ -224,12 +224,12 @@ export function TodoItem({ todo, onUpdate, onDelete, onSubtaskChange }: TodoItem
 
       {/* Expanded */}
       {expanded && (
-        <div className="px-10 pb-3 pt-0 border-t border-gray-50 bg-gray-50/40 space-y-3">
+        <div className="px-10 pb-3 pt-0 border-t border-gray-50 bg-slate-900/40 space-y-3">
           <DescriptionField todoId={todo.id} description={todo.description} onUpdate={onUpdate} />
 
           {/* Subtasks */}
           <div>
-            <p className="text-[10px] font-semibold text-gray-400 uppercase tracking-wider mb-2">Subtasks</p>
+            <p className="text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-2">Subtasks</p>
             <div className="space-y-1">
               {subtasks.map(subtask => (
                 <div key={subtask.id} className="group/sub flex items-center gap-2 py-0.5">
@@ -239,23 +239,23 @@ export function TodoItem({ todo, onUpdate, onDelete, onSubtaskChange }: TodoItem
                   >
                     {subtask.is_completed && <Check size={9} className="text-white" strokeWidth={3} />}
                   </button>
-                  <span className={cn('flex-1 text-sm', subtask.is_completed && 'line-through text-gray-400')}>
+                  <span className={cn('flex-1 text-sm', subtask.is_completed && 'line-through text-slate-500')}>
                     {subtask.title}
                   </span>
                   <button onClick={() => deleteSubtask(subtask.id)}
-                    className="opacity-0 group-hover/sub:opacity-100 p-0.5 hover:text-red-400 text-gray-300">
+                    className="opacity-0 group-hover/sub:opacity-100 p-0.5 hover:text-red-400 text-slate-600">
                     <Trash2 size={11} />
                   </button>
                 </div>
               ))}
             </div>
-            <div className="flex items-center gap-2 mt-2 pt-2 border-t border-gray-100">
+            <div className="flex items-center gap-2 mt-2 pt-2 border-t border-slate-800">
               <input value={newSubtask} onChange={(e) => setNewSubtask(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && addSubtask()}
                 placeholder="Add subtask…"
-                className="flex-1 text-sm outline-none bg-transparent text-gray-600 placeholder:text-gray-300"
+                className="flex-1 text-sm outline-none bg-transparent text-slate-300 placeholder:text-slate-600"
               />
-              <button onClick={addSubtask} className="p-1 bg-blue-600 text-white rounded-lg hover:bg-blue-700 flex-shrink-0">
+              <button onClick={addSubtask} className="p-1 bg-violet-600 text-white rounded-lg hover:bg-violet-700 flex-shrink-0">
                 <Plus size={11} />
               </button>
             </div>
@@ -282,11 +282,11 @@ function DescriptionField({ todoId, description, onUpdate }: {
   return editing ? (
     <textarea autoFocus value={value} onChange={(e) => setValue(e.target.value)} onBlur={save}
       rows={2} placeholder="Add a description…"
-      className="w-full text-sm text-gray-600 outline-none bg-white rounded-lg p-2 resize-none border border-gray-200 focus:ring-2 focus:ring-blue-400 focus:border-transparent"
+      className="w-full text-sm text-slate-300 outline-none bg-slate-900 rounded-lg p-2 resize-none border border-slate-700 focus:ring-2 focus:ring-blue-400 focus:border-transparent"
     />
   ) : (
-    <button onClick={() => setEditing(true)} className="w-full text-left text-sm text-gray-500 hover:text-gray-700 py-1 mt-1 min-h-[20px]">
-      {value || <span className="text-gray-300 italic text-xs">Add description…</span>}
+    <button onClick={() => setEditing(true)} className="w-full text-left text-sm text-slate-400 hover:text-slate-200 py-1 mt-1 min-h-[20px]">
+      {value || <span className="text-slate-600 italic text-xs">Add description…</span>}
     </button>
   )
 }

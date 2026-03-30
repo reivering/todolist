@@ -150,27 +150,27 @@ export function VoiceDictationModal({ open, onClose, onSave }: VoiceDictationMod
     <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center">
       <div className="absolute inset-0 bg-black/30 backdrop-blur-sm" onClick={onClose} />
 
-      <div className="relative bg-white rounded-t-3xl sm:rounded-2xl shadow-2xl border border-gray-200 w-full max-w-lg mx-0 sm:mx-4 flex flex-col"
+      <div className="relative bg-slate-900 rounded-t-3xl sm:rounded-2xl shadow-2xl border border-slate-700 w-full max-w-lg mx-0 sm:mx-4 flex flex-col"
         style={{ maxHeight: '85vh' }}>
 
         {/* Header */}
-        <div className="flex items-center justify-between px-5 py-4 border-b border-gray-100">
+        <div className="flex items-center justify-between px-5 py-4 border-b border-slate-800">
           <div className="flex items-center gap-3">
-            <div className={cn('w-8 h-8 rounded-xl flex items-center justify-center transition-colors', recording ? 'bg-red-100' : 'bg-gray-100')}>
-              <Mic size={15} className={recording ? 'text-red-500' : 'text-gray-500'} />
+            <div className={cn('w-8 h-8 rounded-xl flex items-center justify-center transition-colors', recording ? 'bg-red-100' : 'bg-slate-800')}>
+              <Mic size={15} className={recording ? 'text-red-500' : 'text-slate-400'} />
             </div>
             <div>
-              <h2 className="text-sm font-semibold text-gray-900">Voice Dictation</h2>
-              <p className="text-xs text-gray-400">Speak your tasks — priority is detected automatically</p>
+              <h2 className="text-sm font-semibold text-slate-100">Voice Dictation</h2>
+              <p className="text-xs text-slate-500">Speak your tasks — priority is detected automatically</p>
             </div>
           </div>
-          <button onClick={onClose} className="p-1.5 hover:bg-gray-100 rounded-lg text-gray-400"><X size={15} /></button>
+          <button onClick={onClose} className="p-1.5 hover:bg-slate-800 rounded-lg text-slate-500"><X size={15} /></button>
         </div>
 
         <div className="flex-1 overflow-y-auto p-5 space-y-4">
 
           {!supported ? (
-            <div className="text-center py-8 text-sm text-gray-400">
+            <div className="text-center py-8 text-sm text-slate-500">
               Speech recognition is not supported in this browser. Try Chrome or Edge.
             </div>
           ) : tasks.length === 0 ? (
@@ -178,7 +178,7 @@ export function VoiceDictationModal({ open, onClose, onSave }: VoiceDictationMod
               {/* Recording area */}
               <div className={cn(
                 'relative min-h-[120px] rounded-2xl border-2 border-dashed p-5 transition-all',
-                recording ? 'border-red-300 bg-red-50/40' : 'border-gray-200 bg-gray-50/40'
+                recording ? 'border-red-300 bg-red-50/40' : 'border-slate-700 bg-slate-900/40'
               )}>
                 {recording && (
                   <div className="absolute top-3 right-3 flex items-center gap-1.5">
@@ -188,16 +188,16 @@ export function VoiceDictationModal({ open, onClose, onSave }: VoiceDictationMod
                 )}
 
                 {fullTranscript ? (
-                  <p className="text-sm text-gray-700 leading-relaxed">
+                  <p className="text-sm text-slate-200 leading-relaxed">
                     {transcript}
-                    {interimText && <span className="text-gray-400"> {interimText}</span>}
+                    {interimText && <span className="text-slate-500"> {interimText}</span>}
                   </p>
                 ) : (
                   <div className="flex flex-col items-center justify-center h-full py-4 text-center">
-                    <p className="text-sm text-gray-400">
+                    <p className="text-sm text-slate-500">
                       {recording ? 'Listening… speak your tasks' : 'Press the mic button to start'}
                     </p>
-                    <p className="text-xs text-gray-300 mt-1">
+                    <p className="text-xs text-slate-600 mt-1">
                       e.g. "Finish report urgently, call team tomorrow, maybe update the docs later"
                     </p>
                   </div>
@@ -209,7 +209,7 @@ export function VoiceDictationModal({ open, onClose, onSave }: VoiceDictationMod
                 {!recording ? (
                   <button
                     onClick={startRecording}
-                    className="flex items-center gap-2 px-5 py-2.5 bg-red-500 text-white rounded-2xl text-sm font-medium hover:bg-red-600 shadow-sm shadow-red-200"
+                    className="flex items-center gap-2 px-5 py-2.5 bg-red-500 text-white rounded-2xl text-sm font-medium hover:bg-red-600 shadow-lg shadow-red-200"
                   >
                     <Mic size={15} /> Start recording
                   </button>
@@ -224,7 +224,7 @@ export function VoiceDictationModal({ open, onClose, onSave }: VoiceDictationMod
                 {fullTranscript && !recording && (
                   <button
                     onClick={processTranscript}
-                    className="flex items-center gap-2 px-5 py-2.5 bg-blue-600 text-white rounded-2xl text-sm font-medium hover:bg-blue-700"
+                    className="flex items-center gap-2 px-5 py-2.5 bg-violet-600 text-white rounded-2xl text-sm font-medium hover:bg-violet-700"
                   >
                     <Check size={15} /> Detect tasks
                   </button>
@@ -235,7 +235,7 @@ export function VoiceDictationModal({ open, onClose, onSave }: VoiceDictationMod
               {!recording && (
                 <div className="rounded-xl bg-blue-50 border border-blue-100 px-4 py-3">
                   <p className="text-xs text-blue-700 font-medium mb-1">Priority detection keywords</p>
-                  <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-blue-600">
+                  <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-violet-600">
                     <span><span className="text-red-500 font-medium">High:</span> urgent, critical, ASAP, today, must</span>
                     <span><span className="text-amber-500 font-medium">Med:</span> (default)</span>
                     <span><span className="text-green-600 font-medium">Low:</span> later, maybe, eventually, optional</span>
@@ -247,10 +247,10 @@ export function VoiceDictationModal({ open, onClose, onSave }: VoiceDictationMod
             <>
               {/* Detected tasks */}
               <div className="flex items-center justify-between mb-1">
-                <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider">
                   {tasks.length} task{tasks.length !== 1 ? 's' : ''} detected — sorted by priority
                 </p>
-                <button onClick={() => setTasks([])} className="text-xs text-gray-400 hover:text-gray-600">
+                <button onClick={() => setTasks([])} className="text-xs text-slate-500 hover:text-slate-300">
                   ← Re-record
                 </button>
               </div>
@@ -259,7 +259,7 @@ export function VoiceDictationModal({ open, onClose, onSave }: VoiceDictationMod
                 {tasks.map((task, i) => {
                   const s = PRIORITY_STYLES[task.priority]
                   return (
-                    <div key={i} className="flex items-start gap-3 p-3 bg-gray-50 rounded-xl border border-gray-200">
+                    <div key={i} className="flex items-start gap-3 p-3 bg-slate-900/50 rounded-xl border border-slate-700">
                       {/* Priority picker */}
                       <div className="relative flex-shrink-0">
                         <select
@@ -278,10 +278,10 @@ export function VoiceDictationModal({ open, onClose, onSave }: VoiceDictationMod
                       <input
                         value={task.title}
                         onChange={e => updateTask(i, 'title', e.target.value)}
-                        className="flex-1 text-sm text-gray-800 bg-transparent outline-none min-w-0"
+                        className="flex-1 text-sm text-slate-200 bg-transparent outline-none min-w-0"
                       />
 
-                      <button onClick={() => removeTask(i)} className="p-1 hover:bg-gray-200 rounded text-gray-400 hover:text-red-400 flex-shrink-0">
+                      <button onClick={() => removeTask(i)} className="p-1 hover:bg-slate-700 rounded text-slate-500 hover:text-red-400 flex-shrink-0">
                         <Trash2 size={12} />
                       </button>
                     </div>
@@ -294,12 +294,12 @@ export function VoiceDictationModal({ open, onClose, onSave }: VoiceDictationMod
 
         {/* Footer */}
         {tasks.length > 0 && (
-          <div className="border-t border-gray-100 px-5 py-4 flex items-center justify-between bg-gray-50/50 rounded-b-2xl">
-            <p className="text-xs text-gray-400">{tasks.length} task{tasks.length !== 1 ? 's' : ''} will be created</p>
+          <div className="border-t border-slate-800 px-5 py-4 flex items-center justify-between bg-slate-900/50 rounded-b-2xl">
+            <p className="text-xs text-slate-500">{tasks.length} task{tasks.length !== 1 ? 's' : ''} will be created</p>
             <button
               onClick={handleSave}
               disabled={saving || tasks.length === 0}
-              className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-xl hover:bg-blue-700 disabled:opacity-40"
+              className="flex items-center gap-2 px-4 py-2 bg-violet-600 text-white text-sm font-medium rounded-xl hover:bg-violet-700 disabled:opacity-40"
             >
               {saving ? <Loader2 size={14} className="animate-spin" /> : <Check size={14} />}
               Save {tasks.length} task{tasks.length !== 1 ? 's' : ''}

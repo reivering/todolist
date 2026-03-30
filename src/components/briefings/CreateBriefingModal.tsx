@@ -75,18 +75,18 @@ export function CreateBriefingModal({ open, onClose, onCreated }: CreateBriefing
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
       <div className="absolute inset-0 bg-black/30 backdrop-blur-sm" onClick={onClose} />
-      <div className="relative bg-white rounded-2xl shadow-2xl border border-gray-200 w-full max-w-lg mx-4 flex flex-col"
+      <div className="relative bg-slate-900 rounded-2xl shadow-2xl border border-slate-700 w-full max-w-lg mx-4 flex flex-col"
         style={{ maxHeight: '80vh' }}>
 
         {/* Header */}
-        <div className="flex items-center justify-between px-5 py-4 border-b border-gray-100">
+        <div className="flex items-center justify-between px-5 py-4 border-b border-slate-800">
           <div className="flex items-center gap-3">
             <div className="w-8 h-8 bg-indigo-100 rounded-lg flex items-center justify-center">
               <BookMarked size={15} className="text-indigo-600" />
             </div>
-            <h2 className="text-sm font-semibold text-gray-900">New Briefing</h2>
+            <h2 className="text-sm font-semibold text-slate-100">New Briefing</h2>
           </div>
-          <button onClick={onClose} className="p-1.5 hover:bg-gray-100 rounded-lg text-gray-400">
+          <button onClick={onClose} className="p-1.5 hover:bg-slate-800 rounded-lg text-slate-500">
             <X size={15} />
           </button>
         </div>
@@ -94,32 +94,32 @@ export function CreateBriefingModal({ open, onClose, onCreated }: CreateBriefing
         <div className="flex-1 overflow-y-auto p-5 space-y-5">
           {/* Title */}
           <div>
-            <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Title</label>
+            <label className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Title</label>
             <input
               autoFocus
               value={title}
               onChange={e => setTitle(e.target.value)}
               placeholder="e.g. Chapter 3 Review, Week 2 Study…"
-              className="mt-1.5 w-full px-3 py-2 text-sm border border-gray-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent"
+              className="mt-1.5 w-full px-3 py-2 text-sm border border-slate-700 rounded-xl outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent"
             />
           </div>
 
           {/* Description */}
           <div>
-            <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Description <span className="font-normal normal-case text-gray-400">(optional)</span></label>
+            <label className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Description <span className="font-normal normal-case text-slate-500">(optional)</span></label>
             <textarea
               value={description}
               onChange={e => setDescription(e.target.value)}
               placeholder="What is this briefing about?"
               rows={2}
-              className="mt-1.5 w-full px-3 py-2 text-sm border border-gray-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent resize-none"
+              className="mt-1.5 w-full px-3 py-2 text-sm border border-slate-700 rounded-xl outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent resize-none"
             />
           </div>
 
           {/* Note picker */}
           <div>
             <div className="flex items-center justify-between mb-2">
-              <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider">
+              <label className="text-xs font-semibold text-slate-400 uppercase tracking-wider">
                 Select Notes
               </label>
               {selected.size > 0 && (
@@ -128,20 +128,20 @@ export function CreateBriefingModal({ open, onClose, onCreated }: CreateBriefing
             </div>
 
             {/* Search */}
-            <div className="flex items-center gap-2 bg-gray-50 border border-gray-200 rounded-lg px-2.5 py-1.5 mb-2 focus-within:ring-2 focus-within:ring-indigo-400 focus-within:border-transparent focus-within:bg-white">
-              <Search size={13} className="text-gray-400 flex-shrink-0" />
+            <div className="flex items-center gap-2 bg-slate-900/50 border border-slate-700 rounded-lg px-2.5 py-1.5 mb-2 focus-within:ring-2 focus-within:ring-indigo-400 focus-within:border-transparent focus-within:bg-slate-900">
+              <Search size={13} className="text-slate-500 flex-shrink-0" />
               <input
                 type="text"
                 placeholder="Search notes…"
                 value={search}
                 onChange={e => setSearch(e.target.value)}
-                className="flex-1 text-sm bg-transparent outline-none text-gray-700 placeholder:text-gray-400"
+                className="flex-1 text-sm bg-transparent outline-none text-slate-200 placeholder:text-slate-500"
               />
             </div>
 
             <div className="space-y-1 max-h-48 overflow-y-auto">
               {filtered.length === 0 ? (
-                <p className="text-xs text-gray-400 text-center py-4">No notes found</p>
+                <p className="text-xs text-slate-500 text-center py-4">No notes found</p>
               ) : (
                 filtered.map(note => {
                   const isSelected = selected.has(note.id)
@@ -151,7 +151,7 @@ export function CreateBriefingModal({ open, onClose, onCreated }: CreateBriefing
                       onClick={() => toggle(note.id)}
                       className={cn(
                         'w-full flex items-center gap-3 px-3 py-2 rounded-lg text-left transition-colors',
-                        isSelected ? 'bg-indigo-50 border border-indigo-200' : 'hover:bg-gray-50 border border-transparent'
+                        isSelected ? 'bg-indigo-50 border border-indigo-200' : 'hover:bg-slate-900/50 border border-transparent'
                       )}
                     >
                       <div className={cn(
@@ -161,9 +161,9 @@ export function CreateBriefingModal({ open, onClose, onCreated }: CreateBriefing
                         {isSelected && <Check size={10} className="text-white" strokeWidth={3} />}
                       </div>
                       <div className="min-w-0 flex-1">
-                        <p className="text-sm text-gray-800 truncate">{note.title}</p>
+                        <p className="text-sm text-slate-200 truncate">{note.title}</p>
                         {note.folder && (
-                          <p className="text-xs text-gray-400 truncate">{(note.folder as { name: string }).name}</p>
+                          <p className="text-xs text-slate-500 truncate">{(note.folder as { name: string }).name}</p>
                         )}
                       </div>
                     </button>
@@ -175,8 +175,8 @@ export function CreateBriefingModal({ open, onClose, onCreated }: CreateBriefing
         </div>
 
         {/* Footer */}
-        <div className="flex items-center justify-between px-5 py-4 border-t border-gray-100 bg-gray-50/50 rounded-b-2xl">
-          <button onClick={onClose} className="px-4 py-2 text-sm text-gray-600 hover:bg-gray-100 rounded-lg">
+        <div className="flex items-center justify-between px-5 py-4 border-t border-slate-800 bg-slate-900/50 rounded-b-2xl">
+          <button onClick={onClose} className="px-4 py-2 text-sm text-slate-300 hover:bg-slate-800 rounded-lg">
             Cancel
           </button>
           <button
