@@ -2,17 +2,16 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 import toast from 'react-hot-toast'
-import { FileText, CheckSquare } from 'lucide-react'
+import { FileText, CheckSquare, Mail } from 'lucide-react'
 
 export default function SignupPage() {
-  const router = useRouter()
   const [displayName, setDisplayName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
+  const [emailSent, setEmailSent] = useState(false)
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -25,16 +24,64 @@ export default function SignupPage() {
     const { error } = await supabase.auth.signUp({
       email,
       password,
-      options: { data: { display_name: displayName } },
+      options: {
+        data: { display_name: displayName },
+        emailRedirectTo: `${window.location.origin}/callback`,
+      },
     })
     if (error) {
       toast.error(error.message)
       setLoading(false)
     } else {
-      toast.success('Account created! Signing you in…')
-      router.push('/notes')
-      router.refresh()
+      setEmailSent(true)
     }
+  }
+
+  async function handleResend() {
+    setLoading(true)
+    const supabase = createClient()
+    const { error } = await supabase.auth.resend({
+      type: 'signup',
+      email,
+      options: { emailRedirectTo: `${window.location.origin}/callback` },
+    })
+    if (error) toast.error(error.message)
+    else toast.success('Verification email resent!')
+    setLoading(false)
+  }
+
+  if (emailSent) {
+    return (
+      <div className="min-h-screen bg-slate-950 flex flex-col items-center justify-center p-4 sm:p-6">
+        <div className="w-full max-w-md">
+          <div className="bg-slate-900 rounded-2xl shadow-xl border border-slate-800 p-6 sm:p-8 text-center">
+            <div className="w-14 h-14 bg-violet-600/20 rounded-full flex items-center justify-center mx-auto mb-5">
+              <Mail size={28} className="text-violet-400" />
+            </div>
+            <h2 className="text-xl font-bold text-slate-100 mb-2">Check your email</h2>
+            <p className="text-slate-400 text-sm mb-1">
+              We sent a verification link to
+            </p>
+            <p className="text-slate-200 font-medium text-sm mb-6">{email}</p>
+            <p className="text-slate-500 text-xs mb-6">
+              Click the link in the email to verify your account and get started.
+            </p>
+            <button
+              onClick={handleResend}
+              disabled={loading}
+              className="text-sm text-violet-400 hover:text-violet-300 disabled:opacity-50"
+            >
+              {loading ? 'Sending…' : "Didn't get it? Resend"}
+            </button>
+            <div className="mt-6 pt-4 border-t border-slate-800">
+              <Link href="/login" className="text-sm text-slate-400 hover:text-slate-300">
+                Back to sign in
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
+    )
   }
 
   return (
