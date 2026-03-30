@@ -1,6 +1,7 @@
 import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
 import { AppSidebar } from '@/components/sidebar/AppSidebar'
+import { MobileBottomNav } from '@/components/nav/MobileBottomNav'
 
 export default async function AppLayout({ children }: { children: React.ReactNode }) {
   const supabase = await createClient()
@@ -10,10 +11,14 @@ export default async function AppLayout({ children }: { children: React.ReactNod
 
   return (
     <div className="flex h-full bg-slate-950">
-      <AppSidebar userId={user.id} />
-      <main className="flex-1 overflow-hidden flex flex-col">
+      {/* Sidebar: hidden on mobile, visible on sm+ */}
+      <div className="hidden sm:flex">
+        <AppSidebar userId={user.id} />
+      </div>
+      <main className="flex-1 overflow-hidden flex flex-col pb-14 sm:pb-0">
         {children}
       </main>
+      <MobileBottomNav />
     </div>
   )
 }

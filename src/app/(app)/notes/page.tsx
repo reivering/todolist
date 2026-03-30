@@ -218,22 +218,8 @@ export default function NotesPage() {
         {selectedNote ? (
           <>
             {/* Note toolbar */}
-            <div className="flex items-center justify-between px-5 py-2 border-b border-slate-800 relative z-10 bg-slate-900">
+            <div className="flex items-center justify-between px-3 sm:px-5 py-2 border-b border-slate-800 relative z-10 bg-slate-900">
               <div className="flex items-center gap-2">
-                <button
-                  onClick={() => setShowNotesList(!showNotesList)}
-                  className="sm:hidden p-1.5 text-slate-400 hover:bg-slate-800 rounded-lg"
-                  title="Show notes list"
-                >
-                  <FileText size={16} />
-                </button>
-                <button
-                  onClick={() => setShowNotesList(!showNotesList)}
-                  className="sm:hidden p-1.5 text-slate-400 hover:bg-slate-800 rounded-lg"
-                  title="Show notes list"
-                >
-                  <FileText size={16} />
-                </button>
                 <NoteTagManager
                   noteId={selectedNote.id}
                   userId={''}
@@ -250,23 +236,23 @@ export default function NotesPage() {
                 {/* Flashcards */}
                 <button
                   onClick={() => setShowFlashcards(true)}
-                  className="flex items-center gap-1 px-2.5 py-1.5 text-xs text-violet-300 hover:text-violet-200 hover:bg-violet-600/20 rounded-lg border border-violet-600/40 transition-colors"
+                  className="flex items-center gap-1 px-2 sm:px-2.5 py-1.5 text-xs text-violet-300 hover:text-violet-200 hover:bg-violet-600/20 rounded-lg border border-violet-600/40 transition-colors"
                   title="Flashcards for this note"
                 >
                   <Layers size={13} />
-                  <span>Flashcards</span>
+                  <span className="hidden sm:inline">Flashcards</span>
                 </button>
 
                 {/* Move to folder */}
                 <div className="relative">
                   <button
                     onClick={() => { setShowMoveMenu(!showMoveMenu); setShowActionsMenu(false) }}
-                    className="flex items-center gap-1 px-2.5 py-1.5 text-xs text-slate-300 hover:text-slate-100 hover:bg-slate-700 rounded-lg border border-slate-600/40 transition-colors"
+                    className="flex items-center gap-1 px-2 sm:px-2.5 py-1.5 text-xs text-slate-300 hover:text-slate-100 hover:bg-slate-700 rounded-lg border border-slate-600/40 transition-colors"
                     title="Move to folder"
                   >
                     <FolderInput size={13} />
-                    <span>Move</span>
-                    <ChevronDown size={11} />
+                    <span className="hidden sm:inline">Move</span>
+                    <ChevronDown size={11} className="hidden sm:block" />
                   </button>
                   {showMoveMenu && (
                     <div className="absolute right-0 top-full mt-1 z-20 bg-slate-900 rounded-xl shadow-lg border border-slate-700 py-1 w-48">
@@ -379,51 +365,49 @@ export default function NotesPage() {
         onCancel={() => setConfirmDelete(false)}
       />
 
-      
-      {/* Notes list modal on mobile */}
+      {/* Mobile floating action buttons */}
+      <div className="sm:hidden fixed right-4 bottom-20 z-30 flex flex-col gap-3">
+        <button
+          onClick={() => setShowNotesList(true)}
+          className="w-12 h-12 bg-slate-800 text-slate-300 rounded-full shadow-lg flex items-center justify-center active:scale-95 transition-transform border border-slate-700"
+          title="Notes list"
+        >
+          <FileText size={20} />
+        </button>
+        <button
+          onClick={createNote}
+          className="w-12 h-12 bg-violet-600 text-white rounded-full shadow-lg flex items-center justify-center active:scale-95 transition-transform"
+          title="New note"
+        >
+          <Plus size={22} />
+        </button>
+      </div>
+
+      {/* Notes list slide-over on mobile */}
       {showNotesList && (
         <>
-          <div
-            className="sm:hidden fixed inset-0 bg-black/30 z-30"
-            onClick={() => setShowNotesList(false)}
-          />
-          <div className="sm:hidden fixed inset-y-0 left-0 w-64 z-40 bg-slate-900 border-r border-slate-800 flex flex-col overflow-hidden">
+          <div className="sm:hidden fixed inset-0 bg-black/40 z-40" onClick={() => setShowNotesList(false)} />
+          <div className="sm:hidden fixed inset-y-0 left-0 w-72 z-50 bg-slate-900 border-r border-slate-700 flex flex-col overflow-hidden animate-in slide-in-from-left duration-200">
             <div className="flex items-center justify-between px-4 py-3 border-b border-slate-800">
-              <h2 className="text-sm font-semibold text-slate-200">{title}</h2>
-              <button
-                onClick={() => setShowNotesList(false)}
-                className="p-1 hover:bg-slate-800 rounded text-slate-500"
-              >
-                <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                  <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
-                </svg>
+              <div>
+                <h2 className="text-sm font-semibold text-slate-200">{title}</h2>
+                {notes.length > 0 && <p className="text-[11px] text-slate-500">{notes.length} note{notes.length !== 1 ? 's' : ''}</p>}
+              </div>
+              <button onClick={() => setShowNotesList(false)} className="p-1.5 hover:bg-slate-800 rounded-lg text-slate-500">
+                <X size={18} />
               </button>
             </div>
             <div className="flex-1 overflow-y-auto">
               {notes.length === 0 ? (
-                <div className="flex items-center justify-center h-full text-slate-500 text-sm">No notes</div>
+                <div className="flex flex-col items-center justify-center h-full gap-3">
+                  <p className="text-slate-500 text-sm">No notes yet</p>
+                  <button onClick={() => { createNote(); setShowNotesList(false) }} className="px-4 py-2 bg-violet-600 text-white rounded-lg text-sm">
+                    New note
+                  </button>
+                </div>
               ) : (
                 <NoteList notes={notes} selectedId={selectedNote?.id ?? null} onSelect={(note) => { setSelectedNote(note); setShowNotesList(false) }} />
               )}
-            </div>
-          </div>
-        </>
-      )}
-
-
-      {/* Notes list modal on mobile */}
-      {showNotesList && (
-        <>
-          <div className="sm:hidden fixed inset-0 bg-black/30 z-30" onClick={() => setShowNotesList(false)} />
-          <div className="sm:hidden fixed inset-y-0 left-0 w-64 z-40 bg-slate-900 border-r border-slate-800 flex flex-col overflow-hidden">
-            <div className="flex items-center justify-between px-4 py-3 border-b border-slate-800">
-              <h2 className="text-sm font-semibold text-slate-200">{title}</h2>
-              <button onClick={() => setShowNotesList(false)} className="p-1 hover:bg-slate-800 rounded text-slate-500">
-                <X size={16} />
-              </button>
-            </div>
-            <div className="flex-1 overflow-y-auto">
-              {notes.length === 0 ? <div className="flex items-center justify-center h-full text-slate-500 text-sm">No notes</div> : <NoteList notes={notes} selectedId={selectedNote?.id ?? null} onSelect={(note) => { setSelectedNote(note); setShowNotesList(false) }} />}
             </div>
           </div>
         </>

@@ -87,6 +87,16 @@ body {
 .ProseMirror ul[data-type="taskList"] li > div { flex: 1; }
 .ProseMirror ul[data-type="taskList"] input[type="checkbox"] { accent-color: #7c3aed; width: 14px; height: 14px; }
 
+/* ── Safe area for devices with home indicator ── */
+.safe-bottom { padding-bottom: env(safe-area-inset-bottom, 0px); }
+
+/* ── Slide-in animation ── */
+@keyframes slide-in-from-left {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(0); }
+}
+.animate-in.slide-in-from-left { animation: slide-in-from-left 0.2s ease-out; }
+
 /* ── Scrollbars ── */
 ::-webkit-scrollbar           { width: 5px; height: 5px; }
 ::-webkit-scrollbar-track     { background: transparent; }

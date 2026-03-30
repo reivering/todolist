@@ -178,14 +178,6 @@ export function AppSidebar({ userId }: AppSidebarProps) {
         onConfirm={modal.onConfirm}
         onCancel={closeModal}
       />
-      {/* Mobile hamburger button */}
-      <button
-        onClick={() => setCollapsed(false)}
-        className="sm:hidden fixed top-4 left-4 z-40 p-2 bg-violet-600 text-white rounded-lg hover:bg-violet-700 shadow-lg"
-        title="Open sidebar"
-      >
-        <PanelLeft size={20} />
-      </button>
       <div className="hidden sm:flex w-16 sm:w-[52px] border-r border-slate-800 flex flex-col items-center pt-3 pb-4 gap-1 bg-slate-900">
         <button onClick={() => setCollapsed(false)} className="p-3 sm:p-2 hover:bg-slate-800 rounded-lg text-slate-500 mb-2 active:scale-95 transition-transform">
           <PanelLeft size={18} className="sm:w-4" />

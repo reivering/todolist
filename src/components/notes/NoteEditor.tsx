@@ -26,6 +26,7 @@ export function NoteEditor({ note, onSave }: NoteEditorProps) {
   const saveTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
   const latestTitle = useRef(note.title)
   const [recording, setRecording] = useState(false)
+  const [voiceError, setVoiceError] = useState<string | null>(null)
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const recognitionRef = useRef<any>(null)
   const shouldKeepListeningRef = useRef(false)
@@ -80,10 +81,35 @@ export function NoteEditor({ note, onSave }: NoteEditorProps) {
 
   const wordCount = editor?.getText().trim().split(/\s+/).filter(Boolean).length ?? 0
 
+  function applyPunctuation(text: string): string {
+    let result = text
+      .replace(/\b(comma)\b/gi, ',')
+      .replace(/\b(period|full stop)\b/gi, '.')
+      .replace(/\b(question mark)\b/gi, '?')
+      .replace(/\b(exclamation mark|exclamation point)\b/gi, '!')
+      .replace(/\b(colon)\b/gi, ':')
+      .replace(/\b(semicolon|semi colon)\b/gi, ';')
+      .replace(/\b(dash|hyphen)\b/gi, '\u2014')
+      .replace(/\b(open quote)\b/gi, '\u201C')
+      .replace(/\b(close quote|end quote)\b/gi, '\u201D')
+      .replace(/\b(open paren|open parenthesis)\b/gi, '(')
+      .replace(/\b(close paren|close parenthesis)\b/gi, ')')
+      .replace(/\b(new line|newline)\b/gi, '\n')
+      .replace(/\b(new paragraph)\b/gi, '\n\n')
+    // Remove extra spaces before punctuation
+    result = result.replace(/\s+([,.:;?!)\u201D])/g, '$1')
+    // Capitalize after sentence-ending punctuation
+    result = result.replace(/([.?!]\s+)([a-z])/g, (_, p, c) => p + c.toUpperCase())
+    return result
+  }
+
   function startListening() {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const SR = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition
-    if (!SR) { alert('Speech recognition is not supported in this browser.'); return }
+    if (!SR) {
+      setVoiceError('Speech recognition not supported in this browser')
+      return
+    }
 
     // Stop any existing recognition before creating a new one
     if (recognitionRef.current) {
@@ -99,17 +125,19 @@ export function NoteEditor({ note, onSave }: NoteEditorProps) {
 
     rec.onstart = () => {
       setRecording(true)
+      setVoiceError(null)
     }
 
     rec.onresult = (e: any) => {
       let finalText = ''
       for (let i = e.resultIndex; i < e.results.length; i++) {
         if (e.results[i].isFinal) {
-          finalText += e.results[i][0].transcript + ' '
+          finalText += e.results[i][0].transcript
         }
       }
       if (finalText && editor) {
-        editor.chain().focus().insertContent(finalText).run()
+        const processed = applyPunctuation(finalText)
+        editor.chain().focus().insertContent(processed + ' ').run()
         scheduleAutoSave()
       }
     }
@@ -117,7 +145,6 @@ export function NoteEditor({ note, onSave }: NoteEditorProps) {
     rec.onend = () => {
       recognitionRef.current = null
       if (shouldKeepListeningRef.current) {
-        // Browser killed the session (silence timeout etc.) — restart with backoff
         setTimeout(() => {
           if (shouldKeepListeningRef.current) startListening()
         }, 500)
@@ -128,19 +155,22 @@ export function NoteEditor({ note, onSave }: NoteEditorProps) {
 
     rec.onerror = (e: any) => {
       const error = e.error as string
-      // 'aborted' and 'no-speech' are benign — let onend handle restart
       if (error === 'aborted' || error === 'no-speech') return
-      // 'network' on rapid restarts — back off longer
       if (error === 'network') {
+        setVoiceError('Cannot reach speech service — check your internet connection')
         recognitionRef.current = null
         if (shouldKeepListeningRef.current) {
           setTimeout(() => {
             if (shouldKeepListeningRef.current) startListening()
-          }, 1500)
+          }, 2000)
         }
         return
       }
-      // Fatal errors — stop dictation
+      if (error === 'not-allowed') {
+        setVoiceError('Microphone access denied — allow it in browser settings')
+      } else {
+        setVoiceError(`Speech error: ${error}`)
+      }
       shouldKeepListeningRef.current = false
       recognitionRef.current = null
       setRecording(false)
@@ -150,13 +180,25 @@ export function NoteEditor({ note, onSave }: NoteEditorProps) {
     editor?.commands.focus()
   }
 
-  function toggleVoice() {
+  async function toggleVoice() {
     if (recording) {
       shouldKeepListeningRef.current = false
       recognitionRef.current?.stop()
       setRecording(false)
+      setVoiceError(null)
       return
     }
+
+    // Request mic permission explicitly before starting recognition
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true })
+      stream.getTracks().forEach(t => t.stop()) // release immediately, just needed permission
+    } catch {
+      setVoiceError('Microphone access denied — allow it in browser settings')
+      return
+    }
+
+    setVoiceError(null)
     shouldKeepListeningRef.current = true
     startListening()
   }
@@ -166,7 +208,7 @@ export function NoteEditor({ note, onSave }: NoteEditorProps) {
   return (
     <div className="flex flex-col min-h-0 flex-1">
       {/* Toolbar */}
-      <div className="flex items-center gap-0.5 px-5 py-2 border-b border-slate-800 bg-slate-900/60 flex-wrap relative">
+      <div className="flex items-center gap-0.5 px-3 sm:px-5 py-2 border-b border-slate-800 bg-slate-900/60 overflow-x-auto sm:flex-wrap relative">
         <ToolbarGroup>
           <ToolbarBtn onClick={() => editor.chain().focus().toggleBold().run()} active={editor.isActive('bold')} title="Bold (⌘B)"><Bold size={13} /></ToolbarBtn>
           <ToolbarBtn onClick={() => editor.chain().focus().toggleItalic().run()} active={editor.isActive('italic')} title="Italic (⌘I)"><Italic size={13} /></ToolbarBtn>
@@ -194,7 +236,12 @@ export function NoteEditor({ note, onSave }: NoteEditorProps) {
 
         {/* Mic button — right-aligned */}
         <div className="ml-auto flex items-center gap-1.5">
-          {recording && (
+          {voiceError && (
+            <span className="text-xs text-amber-400 max-w-[200px] truncate" title={voiceError}>
+              {voiceError}
+            </span>
+          )}
+          {recording && !voiceError && (
             <span className="flex items-center gap-1.5 text-xs text-red-500 font-medium">
               <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
               Listening…
@@ -219,7 +266,7 @@ export function NoteEditor({ note, onSave }: NoteEditorProps) {
 
       {/* Editor body */}
       <div className="flex-1 overflow-y-auto">
-        <div className="max-w-3xl mx-auto px-10 py-8">
+        <div className="max-w-3xl mx-auto px-4 py-5 sm:px-10 sm:py-8">
           <textarea
             ref={titleRef}
             defaultValue={note.title === 'Untitled' ? '' : note.title}
@@ -227,14 +274,14 @@ export function NoteEditor({ note, onSave }: NoteEditorProps) {
             onKeyDown={handleTitleKeyDown}
             placeholder="Untitled"
             rows={1}
-            className="w-full text-[2rem] font-bold text-slate-100 resize-none outline-none placeholder:text-slate-600 mb-5 bg-transparent overflow-hidden leading-tight"
+            className="w-full text-2xl sm:text-[2rem] font-bold text-slate-100 resize-none outline-none placeholder:text-slate-600 mb-4 sm:mb-5 bg-transparent overflow-hidden leading-tight"
           />
           <EditorContent editor={editor} className="min-h-[200px]" />
         </div>
       </div>
 
       {/* Footer */}
-      <div className="flex items-center justify-between px-10 py-2 border-t border-slate-800 bg-slate-900/50">
+      <div className="flex items-center justify-between px-4 sm:px-10 py-2 border-t border-slate-800 bg-slate-900/50">
         <span className="text-xs text-slate-500">
           {wordCount > 0 ? `${wordCount} word${wordCount !== 1 ? 's' : ''}` : 'Empty'}
         </span>
