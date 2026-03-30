@@ -174,28 +174,28 @@ export function AppSidebar({ userId }: AppSidebarProps) {
         onConfirm={modal.onConfirm}
         onCancel={closeModal}
       />
-      <div className="w-[52px] border-r border-slate-800 flex flex-col items-center pt-3 pb-4 gap-1 bg-slate-900">
-        <button onClick={() => setCollapsed(false)} className="p-2 hover:bg-slate-800 rounded-lg text-slate-500 mb-2">
-          <PanelLeft size={16} />
+      <div className="w-16 sm:w-[52px] border-r border-slate-800 flex flex-col items-center pt-3 pb-4 gap-1 bg-slate-900">
+        <button onClick={() => setCollapsed(false)} className="p-3 sm:p-2 hover:bg-slate-800 rounded-lg text-slate-500 mb-2 active:scale-95 transition-transform">
+          <PanelLeft size={18} className="sm:w-4" />
         </button>
-        <Link href="/notes" title="Notes" className={cn('p-2 rounded-lg', pathname.startsWith('/notes') ? 'bg-violet-100 text-violet-600' : 'text-slate-500 hover:bg-slate-800')}>
-          <FileText size={17} />
+        <Link href="/notes" title="Notes" className={cn('p-3 sm:p-2 rounded-lg active:scale-95 transition-transform', pathname.startsWith('/notes') ? 'bg-violet-100 text-violet-600' : 'text-slate-500 hover:bg-slate-800')}>
+          <FileText size={19} className="sm:w-[17px]" />
         </Link>
-        <Link href="/todos" title="Todos" className={cn('p-2 rounded-lg', pathname.startsWith('/todos') ? 'bg-violet-100 text-violet-600' : 'text-slate-500 hover:bg-slate-800')}>
-          <CheckSquare size={17} />
+        <Link href="/todos" title="Todos" className={cn('p-3 sm:p-2 rounded-lg active:scale-95 transition-transform', pathname.startsWith('/todos') ? 'bg-violet-100 text-violet-600' : 'text-slate-500 hover:bg-slate-800')}>
+          <CheckSquare size={19} className="sm:w-[17px]" />
         </Link>
-        <Link href="/flashcards" title="Flashcards" className={cn('p-2 rounded-lg', pathname.startsWith('/flashcards') ? 'bg-violet-100 text-violet-600' : 'text-slate-500 hover:bg-slate-800')}>
-          <Layers size={16} />
+        <Link href="/flashcards" title="Flashcards" className={cn('p-3 sm:p-2 rounded-lg active:scale-95 transition-transform', pathname.startsWith('/flashcards') ? 'bg-violet-100 text-violet-600' : 'text-slate-500 hover:bg-slate-800')}>
+          <Layers size={18} className="sm:w-4" />
         </Link>
-        <Link href="/briefings" title="Briefings" className={cn('p-2 rounded-lg', pathname.startsWith('/briefings') ? 'bg-indigo-100 text-indigo-600' : 'text-slate-500 hover:bg-slate-800')}>
-          <BookMarked size={16} />
+        <Link href="/briefings" title="Briefings" className={cn('p-3 sm:p-2 rounded-lg active:scale-95 transition-transform', pathname.startsWith('/briefings') ? 'bg-indigo-100 text-indigo-600' : 'text-slate-500 hover:bg-slate-800')}>
+          <BookMarked size={18} className="sm:w-4" />
         </Link>
-        <Link href="/trash" title="Trash" className={cn('p-2 rounded-lg mt-1', isTrashActive ? 'bg-slate-800 text-slate-200' : 'text-slate-500 hover:bg-slate-800')}>
-          <Trash2 size={16} />
+        <Link href="/trash" title="Trash" className={cn('p-3 sm:p-2 rounded-lg mt-1 active:scale-95 transition-transform', isTrashActive ? 'bg-slate-800 text-slate-200' : 'text-slate-500 hover:bg-slate-800')}>
+          <Trash2 size={18} className="sm:w-4" />
         </Link>
         <div className="mt-auto">
-          <button onClick={handleLogout} title="Sign out" className="p-2 hover:bg-slate-800 rounded-lg text-slate-600 hover:text-slate-400">
-            <LogOut size={15} />
+          <button onClick={handleLogout} title="Sign out" className="p-3 sm:p-2 hover:bg-slate-800 rounded-lg text-slate-600 hover:text-slate-400 active:scale-95 transition-transform">
+            <LogOut size={18} className="sm:w-[15px]" />
           </button>
         </div>
       </div>
@@ -222,7 +222,7 @@ export function AppSidebar({ userId }: AppSidebarProps) {
           </div>
           <span className="text-sm font-semibold text-slate-100 tracking-tight">Workspace</span>
         </div>
-        <button onClick={() => setCollapsed(true)} className="p-1.5 hover:bg-slate-800 rounded-lg text-slate-500">
+        <button onClick={() => setCollapsed(true)} className="p-1.5 hover:bg-slate-800 rounded-lg text-slate-500 active:scale-95 transition-transform">
           <PanelLeftClose size={15} />
         </button>
       </div>
