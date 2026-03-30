@@ -66,10 +66,11 @@ export default function BriefingDetailPage({ params }: PageProps) {
 
     if (noteRows) {
       // Preserve briefing_notes sort order
+      const notesArray = noteRows as Note[]
       const ordered = bnotes
-        .map(bn => noteRows.find(n => n.id === bn.note_id))
+        .map(bn => notesArray.find(n => n.id === bn.note_id))
         .filter((n): n is Note => n !== undefined)
-      setNotes(ordered as Note[])
+      setNotes(ordered)
       // Expand all notes by default so user can read them
       setExpandedNotes(new Set(ordered.map(n => n.id)))
 
